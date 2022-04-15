@@ -3,6 +3,7 @@ import Grid from "./../elements/Grid";
 import Image from "../elements/Image";
 import HeaderBtn from "../elements/HeaderBtn";
 import PostBtn from "../elements/PostBtn";
+import ProfileModal from "./ProfileModal";
 
 const Header = () => {
   return (
@@ -25,6 +26,7 @@ const Header = () => {
           />
         </Grid>
       </Grid>
+      <ProfileModal />
     </Grid>
   );
 };
