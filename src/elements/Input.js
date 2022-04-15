@@ -2,8 +2,19 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-  const { margin, placehorder, type, onChange } = props;
-  const styles = { margin };
+  const { border, margin, placehorder, type, onChange, shape } = props;
+  const styles = { margin, border };
+
+  if (shape == "textarea") {
+    return (
+      <Textarea
+        placeholder={placehorder}
+        {...styles}
+        onChange={onChange}
+      ></Textarea>
+    );
+  }
+
   return (
     <MainInput
       type={type}
@@ -23,6 +34,17 @@ const MainInput = styled.input`
   background-color: #fafafa;
   font-size: 12px;
   ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Textarea = styled.textarea`
+  width: 514px;
+  height: 18px;
+  resize: none;
+  ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
+  ${(props) => (props.border ? `border: ${props.border};` : null)}
   &:focus {
     outline: none;
   }
