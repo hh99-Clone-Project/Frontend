@@ -2,17 +2,21 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-  const { margin } = props;
+  const { margin, placehorder, type } = props;
   const styles = { margin };
-  return <MainInput {...styles}></MainInput>;
+  return (
+    <MainInput type={type} placeholder={placehorder} {...styles}></MainInput>
+  );
 };
 
 const MainInput = styled.input`
   width: 260px;
-  height: 32px;
+  height: 37px;
   border: 1px solid lightgray;
-  border-radius: 0.4rem;
+  padding: 0 0 0 5px;
+  border-radius: 1px;
   background-color: #fafafa;
+  font-size: 12px;
   ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
   &:focus {
     outline: none;
