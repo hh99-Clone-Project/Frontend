@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { onClick, width, height } = props;
-  const styles = { width, height };
+  const { onClick, width, height, margin, children } = props;
+  const styles = { width, height, margin };
   return (
     <ElButton onClick={onClick} {...styles}>
-      버튼
+      {props.children}
     </ElButton>
   );
 };
@@ -28,6 +28,7 @@ const ElButton = styled.div`
   border: none;
   border-radius: 0.4rem;
   cursor: pointer;
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
 `;
 
 export default Button;
