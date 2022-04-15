@@ -2,10 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-  const { margin, placehorder, type } = props;
+  const { margin, placehorder, type, onChange } = props;
   const styles = { margin };
   return (
-    <MainInput type={type} placeholder={placehorder} {...styles}></MainInput>
+    <MainInput
+      type={type}
+      placeholder={placehorder}
+      {...styles}
+      onChange={onChange}
+    ></MainInput>
   );
 };
 

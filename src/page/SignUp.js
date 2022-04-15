@@ -1,10 +1,35 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Grid from "../elements/Grid";
 import Input from "./../elements/Input";
 import Logo from "../elements/Logo";
 import Button from "./../elements/Button";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { useDispatch } from "react-redux";
 
 const SignUp = () => {
+  const [id, setId] = useState();
+  const [nickname, setNickname] = useState();
+  const [pw, setPw] = useState();
+
+  const dispatch = useDispatch();
+  const changeId = (e) => {
+    setId(e.target.value);
+  };
+  const changeNickname = (e) => {
+    setNickname(e.target.value);
+  };
+  const changePw = (e) => {
+    setPw(e.target.value);
+  };
+  const signUp = () => {
+    const userData = {
+      username: id,
+      nickname: nickname,
+      password: pw,
+    };
+    dispatch(userActions.signUpDB(userData));
+  };
+
   return (
     <Grid height={"100vh"} border={"1px solid #FAFAFA"} bg={"#FAFAFA"}>
       <Grid
@@ -49,17 +74,29 @@ const SignUp = () => {
         <Grid padding={"5px 0 0 0"} width={"262px"} height={"197px"}>
           <Input
             margin={"5px auto"}
-            placehorder={"휴대폰 번호 또는 이메일 주소"}
+            onChange={changeId}
+            placehorder={"아이디"}
           />
-          <Input margin={"0px auto"} placehorder={"성명"} />
-          <Input margin={"5px auto"} placehorder={"사용자 이름"} />
           <Input
             margin={"0px auto"}
+            onChange={changeNickname}
+            placehorder={"닉네임"}
+          />
+          <Input
+            margin={"5px auto"}
+            onChange={changePw}
             placehorder={"비밀번호"}
             type={"password"}
           />
+          <Input
+            margin={"0px auto"}
+            placehorder={"비밀번호 확인"}
+            type={"password"}
+          />
         </Grid>
-        <Button margin={"-10px auto"}>가입</Button>
+        <Button onClick={signUp} margin={"-10px auto"}>
+          가입
+        </Button>
       </Grid>
       <Grid>
         <Grid
