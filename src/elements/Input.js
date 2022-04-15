@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = () => {
-  return <MainInput></MainInput>;
+const Input = (props) => {
+  const { margin } = props;
+  const styles = { margin };
+  return <MainInput {...styles}></MainInput>;
 };
 
 const MainInput = styled.input`
   width: 260px;
   height: 32px;
-  margin: 50px auto;
   border: 1px solid lightgray;
   border-radius: 0.4rem;
   background-color: #fafafa;
+  ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
   &:focus {
     outline: none;
   }
