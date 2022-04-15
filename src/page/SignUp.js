@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Grid from "../elements/Grid";
 import Input from "./../elements/Input";
-import Logo from "../elements/Logo";
+import Image from "../elements/Image";
 import Button from "./../elements/Button";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
@@ -40,7 +40,7 @@ const SignUp = () => {
         bg={"#ffffff"}
       >
         <Grid width={"175px"} margin={"0 auto"} padding={"40px 0 10px 0"}>
-          <Logo src={require("../static/logo.png")}></Logo>
+          <Image src={require("../static/logo.png")}></Image>
         </Grid>
         <h2
           style={{
@@ -133,12 +133,12 @@ const SignUp = () => {
           앱을 다운로드하세요.
         </p>
         <Grid is_flex width={"280px"}>
-          <Logo
+          <Image
             width={"135px"}
             height={"40px"}
             src={require("../static/Appstore.png")}
           />
-          <Logo
+          <Image
             width={"135px"}
             height={"40px"}
             src={require("../static/playStore.png")}
