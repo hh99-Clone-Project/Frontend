@@ -87,17 +87,26 @@ const HomeBtn = styled.svg`
   color: #262626;
   height: 24px;
   width: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const PostBtn = styled.svg`
   color: rgb(38, 38, 38);
   height: 24px;
   width: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const MapBtn = styled.svg`
   color: #262626;
   height: 24px;
   width: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export default HeaderBtn;
