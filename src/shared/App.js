@@ -1,12 +1,14 @@
-import Grid from "../elements/Grid";
-import Input from "../elements/Input";
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "../page/LogIn";
 
 function App() {
   return (
-    <div className="App">
-        메인입니다<Input></Input>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
