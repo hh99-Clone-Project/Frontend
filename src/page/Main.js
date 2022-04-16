@@ -11,13 +11,15 @@ const Main = (props) => {
       <Header />
       <div
         style={{
+          width: "100%",
           height: "100%",
           backgroundColor: "#FAFAFA",
+          padding: "25px 0 0 0",
         }}
       >
         <NGrid width="940px">
           {_postList.map((cur, idx) => {
-            return <Post key={cur.postId} {...cur} margin="25px 0 0 0" />;
+            return <Post key={cur.postId} {...cur} margin="0 0 25px 0" />;
           })}
         </NGrid>
       </div>
