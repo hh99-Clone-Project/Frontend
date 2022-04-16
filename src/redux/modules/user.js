@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
+import axios from "axios";
 import { signUpRes } from "../../shared/mockApi";
 
 //액션 타입
@@ -18,6 +19,15 @@ const logOut = createAction(LOGOUT, (userInfo) => ({ userInfo }));
 //미들웨어
 export const signUpDB = (userInfo) => {
   return function (dispatch, getState) {
+    axios
+      .post("/user/signup", { ...userInfo })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     dispatch(signUp(userInfo.username));
   };
 };
