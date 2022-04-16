@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Modal from "react-modal";
 import Login from "../page/LogIn";
 import SignUp from "../page/SignUp";
-import Header from "../components/Header";
 import Main from "../page/Main";
 
 function App() {

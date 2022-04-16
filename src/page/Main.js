@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import Grid from "../elements/Grid";
+import Grid from "../elements/NGrid";
 import Post from "./../components/Post";
 import { postList } from "../shared/mockApi";
 

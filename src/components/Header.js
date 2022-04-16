@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Grid from "./../elements/Grid";
-import Image from "../elements/Image";
+import Grid from "../elements/NGrid";
+import Image from "../elements/NImage";
 import PostBtn from "../elements/PostBtn";
 import ProfileModal from "./ProfileModal";
 
