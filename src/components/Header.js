@@ -23,7 +23,7 @@ const Header = () => {
         <Grid is_flex width={"254px"} height={"24px"} margin={"0 0"}>
           <PostBtn type={"Home"} />
           <PostBtn type={"Dm"} />
-          <PostBtn type={"Add"} />
+          <PostBtn type={"Post"} />
           <PostBtn type={"Map"} />
           <PostBtn type={"Heart"} />
           <Image
