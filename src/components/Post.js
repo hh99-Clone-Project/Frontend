@@ -5,7 +5,6 @@ import Input from "../elements/NInput";
 import PostBtn from "../elements/PostBtn";
 
 const Post = (props) => {
-  console.log(props);
   return (
     <NGrid
       margin={props.margin}
