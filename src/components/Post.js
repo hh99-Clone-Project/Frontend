@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "../elements/NGrid";
+import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import Input from "../elements/NInput";
 import PostBtn from "../elements/PostBtn";
@@ -7,14 +7,14 @@ import PostBtn from "../elements/PostBtn";
 const Post = (props) => {
   console.log(props);
   return (
-    <Grid
+    <NGrid
       margin={props.margin}
       border="1px solid #DBDBDB"
       width="615px"
       height="900px"
       bg="#ffffff"
     >
-      <Grid height={"72px"} is_flex>
+      <NGrid height={"72px"} is_flex>
         <Image
           src={require("../static/IU.jpg")}
           type="circle"
@@ -23,17 +23,17 @@ const Post = (props) => {
           margin="0 10px"
           borderTop
         />
-        <Grid width={"555px"} height={"100%"} line_height={"72px"}>
+        <NGrid width={"555px"} height={"100%"} line_height={"72px"}>
           {props.nickname}
-        </Grid>
-        <Grid height={"100%"} line_height={"72px"}>
+        </NGrid>
+        <NGrid height={"100%"} line_height={"72px"}>
           <svg style={{ width: "30px", cursor: "pointer" }}>
             <circle cx="12" cy="34" r="1.5" />
             <circle cx="6" cy="34" r="1.5" />
             <circle cx="18" cy="34" r="1.5" />
           </svg>
-        </Grid>
-      </Grid>
+        </NGrid>
+      </NGrid>
       <Image
         borderTop
         borderBottom
@@ -41,19 +41,19 @@ const Post = (props) => {
         height={"613px"}
         src={props.imageFile}
       ></Image>
-      <Grid is_flex height={"50px"}>
-        <Grid is_flex width={"112px"} height={"24px"} margin={"0 0 0 8px"}>
+      <NGrid is_flex height={"50px"}>
+        <NGrid is_flex width={"112px"} height={"24px"} margin={"0 0 0 8px"}>
           <PostBtn />
           <PostBtn type={"Comment"} />
           <PostBtn type={"Dm"} />
-        </Grid>
-        <Grid width={"25px"} margin={"0 8px 0 0"}>
+        </NGrid>
+        <NGrid width={"25px"} margin={"0 8px 0 0"}>
           <PostBtn type={"BookMark"} />
-        </Grid>
-      </Grid>
+        </NGrid>
+      </NGrid>
 
-      <Grid height="72px" border="1px solid red"></Grid>
-      <Grid height="33px" line_height="33px">
+      <NGrid height="72px" border="1px solid red"></NGrid>
+      <NGrid height="33px" line_height="33px">
         <p
           style={{
             width: "580px",
@@ -65,12 +65,12 @@ const Post = (props) => {
         >
           7일 전
         </p>
-      </Grid>
+      </NGrid>
 
-      <Grid height={"54px"}>
-        <Grid></Grid>
+      <NGrid height={"54px"}>
+        <NGrid></NGrid>
         <hr style={{ border: "0.5px solid #EFEFEF" }} />
-        <Grid height="53px" is_flex>
+        <NGrid height="53px" is_flex>
           <Input
             margin={"0 0 0 40px"}
             border={"none"}
@@ -87,9 +87,9 @@ const Post = (props) => {
           >
             게시
           </p>
-        </Grid>
-      </Grid>
-    </Grid>
+        </NGrid>
+      </NGrid>
+    </NGrid>
   );
 };
 

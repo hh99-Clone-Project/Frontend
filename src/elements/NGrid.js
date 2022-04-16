@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Grid = (props) => {
+const NGrid = (props) => {
   const {
     is_flex,
     width,
@@ -38,8 +38,7 @@ const Grid = (props) => {
   );
 };
 
-Grid.defualtProps = {
-  children: null,
+NGrid.defualtProps = {
   border: false,
   is_flex: false,
   width: "100%",
@@ -72,4 +71,4 @@ ${(props) =>
     : ""}
 `;
 
-export default Grid;
+export default NGrid;

@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = (props) => {
+const NButton = (props) => {
   const { onClick, width, height, margin, children } = props;
   const styles = { width, height, margin };
   return (
     <ElButton onClick={onClick} {...styles}>
-      {props.children}
+      {children}
     </ElButton>
   );
 };
 
-Button.defaultProps = {
+NButton.defaultProps = {
   width: "270px",
   height: "30px",
   lineHeight: "30px",
@@ -31,4 +31,4 @@ const ElButton = styled.div`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
 `;
 
-export default Button;
+export default NButton;

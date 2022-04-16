@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import Grid from "../elements/NGrid";
+import NGrid from "../elements/NGrid";
 import Post from "./../components/Post";
 import { postList } from "../shared/mockApi";
 
@@ -15,11 +15,11 @@ const Main = (props) => {
           backgroundColor: "#FAFAFA",
         }}
       >
-        <Grid width="940px">
+        <NGrid width="940px">
           {_postList.map((cur, idx) => {
             return <Post key={cur.postId} {...cur} margin="25px 0 0 0" />;
           })}
-        </Grid>
+        </NGrid>
       </div>
     </>
   );

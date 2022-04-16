@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Grid from "../elements/NGrid";
+import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import PostBtn from "../elements/PostBtn";
 import ProfileModal from "./ProfileModal";
@@ -15,12 +15,12 @@ const Header = () => {
     setIsOpen(false);
   };
   return (
-    <Grid border={"1px solid #DBDBDB"} height={"60px"}>
-      <Grid is_flex width={"940px"} margin={"14.5px auto"}>
-        <Grid width={"103px"} margin={"0 0"}>
+    <NGrid border={"1px solid #DBDBDB"} height={"60px"}>
+      <NGrid is_flex width={"940px"} margin={"14.5px auto"}>
+        <NGrid width={"103px"} margin={"0 0"}>
           <Image src={require("../static/smallLogo.png")} />
-        </Grid>
-        <Grid is_flex width={"254px"} height={"24px"} margin={"0 0"}>
+        </NGrid>
+        <NGrid is_flex width={"254px"} height={"24px"} margin={"0 0"}>
           <PostBtn type={"Home"} />
           <PostBtn type={"Dm"} />
           <PostBtn type={"Post"} />
@@ -34,14 +34,14 @@ const Header = () => {
             onClick={modalOpen}
             setIsOpen={setIsOpen}
           />
-        </Grid>
-      </Grid>
+        </NGrid>
+      </NGrid>
       <ProfileModal
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         modalClose={modalClose}
       />
-    </Grid>
+    </NGrid>
   );
 };
 
