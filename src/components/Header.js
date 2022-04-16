@@ -20,9 +20,6 @@ const Header = () => {
     setAddPost(true);
   };
 
-  const addPostClose = () => {
-    setAddPost(false);
-  };
   return (
     <NGrid border={"1px solid #DBDBDB"} height={"60px"}>
       <NGrid is_flex width={"940px"} margin={"14.5px auto"}>
@@ -52,11 +49,7 @@ const Header = () => {
           modalClose={modalClose}
         />
       ) : null}
-      <AddPostModal
-        setAddPost={setAddPost}
-        addPost={addPost}
-        addPostClose={addPostClose}
-      />
+      <AddPostModal setAddPost={setAddPost} addPost={addPost} />
     </NGrid>
   );
 };

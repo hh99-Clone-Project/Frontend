@@ -2,14 +2,23 @@ import React from "react";
 import styled from "styled-components";
 
 const NImage = (props) => {
-  const { src, width, height, margin, type, borderTop, borderBottom, onClick } =
-    props;
+  const {
+    src,
+    width,
+    height,
+    margin,
+    type,
+    borderTop,
+    borderBottom,
+    onClick,
+    onChange,
+  } = props;
   const styles = { width, height, margin, borderTop, borderBottom };
 
-  if (type == "circle") {
+  if (type === "circle") {
     return <CircleImg onClick={onClick} src={src} {...styles}></CircleImg>;
   }
-  return <Img src={src} {...styles}></Img>;
+  return <Img onChange={onChange} src={src} {...styles}></Img>;
 };
 
 Image.defaultProps = {
@@ -18,8 +27,8 @@ Image.defaultProps = {
 };
 
 const Img = styled.img`
-  ${(props) => (props.width ? `color: ${props.width};` : null)}
-  ${(props) => (props.height ? `color: ${props.height};` : null)}
+  ${(props) => (props.width ? `width: ${props.width};` : null)}
+  ${(props) => (props.height ? `height: ${props.height};` : null)}
   ${(props) => (props.borderTop ? `border-top: 1px solid #DBDBDB;` : null)}
   ${(props) =>
     props.borderBottom ? `border-bottom: 1px solid #DBDBDB;` : null}
