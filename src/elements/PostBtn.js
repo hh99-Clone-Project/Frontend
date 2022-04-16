@@ -4,38 +4,145 @@ import styled from "styled-components";
 const PostBtn = (props) => {
   const { type } = props;
 
-  if (type == "Dm") {
+  if (type == "Profile") {
     return (
-      <Dm viewBox={"0 0 24 24"} fill={"black"} role={"img"}>
-        <line
-          fill={"none"}
-          stroke={"currentColor"}
-          strokeLinejoin={"round"}
-          strokeWidth={"2"}
-          x1={"22"}
-          x2={"9.218"}
-          y1={"3"}
-          y2={"10.083"}
+      <Profile fill="#262626" viewBox="0 0 24 24" role="img">
+        <circle
+          cx="12.004"
+          cy="12.004"
+          fill="none"
+          r="10.5"
+          stroke="currentColor"
+          strokeLinecap="round"
+          stroke-miterlimit="10"
+          stroke-width="2"
+        />
+        <path
+          d="M18.793 20.014a6.08 6.08 0 00-1.778-2.447 3.991 3.991 0 00-2.386-.791H9.38a3.994 3.994 0 00-2.386.791 6.09 6.09 0 00-1.779 2.447"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="2"
+        />
+        <circle
+          cx="12.006"
+          cy="9.718"
+          fill="none"
+          r="4.109"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="2"
+        />
+      </Profile>
+    );
+  }
+
+  if (type == "Map") {
+    return (
+      <MapBtn fill="#262626" role="img" viewBox="0 0 24 24">
+        <polygon
+          fill="none"
+          points="13.941 13.953 7.581 16.424 10.06 10.056 16.42 7.585 13.941 13.953"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
         <polygon
-          fill={"none"}
-          stroke={"currentColor"}
-          strokeLinejoin={"round"}
-          strokeWidth={"2"}
-          points={"11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334"}
+          fillRule="evenodd"
+          points="10.06 10.056 13.949 13.945 7.581 16.424 10.06 10.056"
+        />
+        <circle
+          cx="12.001"
+          cy="12.005"
+          fill="none"
+          r="10.5"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+        />
+      </MapBtn>
+    );
+  }
+  if (type == "Add") {
+    return (
+      <AddBtn fill="#262626" role="img" viewBox="0 0 24 24">
+        <path
+          d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552z"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+        />
+        <line
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          x1="6.545"
+          x2="17.455"
+          y1="12.001"
+          y2="12.001"
+        />
+        <line
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          x1="12.003"
+          x2="12.003"
+          y1="6.545"
+          y2="17.455"
+        />
+      </AddBtn>
+    );
+  }
+  if (type == "Home") {
+    return (
+      <HomeBtn fill="#262626" role="img" viewBox="0 0 24 24">
+        <path d="M22 23h-6.001a1 1 0 01-1-1v-5.455a2.997 2.997 0 10-5.993 0V22a1 1 0 01-1 1H2a1 1 0 01-1-1V11.543a1.002 1.002 0 01.31-.724l10-9.543a1.001 1.001 0 011.38 0l10 9.543a1.002 1.002 0 01.31.724V22a1 1 0 01-1 1z"></path>
+      </HomeBtn>
+    );
+  }
+
+  if (type == "Dm") {
+    return (
+      <Dm viewBox="0 0 24 24" fill="black" role="img">
+        <line
+          fill="none"
+          stroke="currentColor"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          x1="22"
+          x2="9.218"
+          y1="3"
+          y2="10.083"
+        />
+        <polygon
+          fill="none"
+          stroke="currentColor"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334"
         />
       </Dm>
     );
   }
   if (type == "Comment") {
     return (
-      <Comment viewBox={"0 0 24 24"} fill={"black"} role={"img"}>
+      <Comment viewBox="0 0 24 24" fill="black" role="img">
         <path
-          d={"M 20.656 17.008 a 9.993 9.993 0 1 0 -3.59 3.615 L 22 22 Z"}
-          fill={"none"}
-          stroke={"currentColor"}
-          strokeLinejoin={"round"}
-          strokeWidth={"2"}
+          d="M 20.656 17.008 a 9.993 9.993 0 1 0 -3.59 3.615 L 22 22 Z"
+          fill="none"
+          stroke="currentColor"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
       </Comment>
     );
@@ -43,19 +150,65 @@ const PostBtn = (props) => {
 
   if (type == "BookMark") {
     return (
-      <BookMark viewBox={"0 0 24 24"} fill={"black"} role={"img"}>
+      <BookMark viewBox="0 0 24 24" fill="black" role="img">
         <polygon
-          fill={"none"}
-          points={"20 21 12 13.44 4 21 4 3 20 3 20 21"}
-          stroke={"currentColor"}
-          strokeLinecap={"round"}
-          strokeLinejoin={"round"}
-          strokeWidth={"2"}
+          fill="none"
+          points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
       </BookMark>
     );
   }
 
+  if (type == "SmallMark") {
+    return (
+      <SmallMark viewBox="0 0 24 24" fill="black" role="img">
+        <polygon
+          fill="none"
+          points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+        />
+      </SmallMark>
+    );
+  }
+
+  if (type == "Option") {
+    return (
+      <Option viewBox="0 0 24 24" fill="black" role="img">
+        <circle
+          cx="12"
+          cy="12"
+          fill="none"
+          r="8.635"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        />
+        <path
+          d="M14.232 3.656a1.269 1.269 0 01-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 01-.796.66m-.001 16.688a1.269 1.269 0 01.796.66l.505.996h1.862l.505-.996a1.269 1.269 0 01.796-.66M3.656 9.768a1.269 1.269 0 01-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 01.66.796m16.688-.001a1.269 1.269 0 01.66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 01-.66-.796M7.678 4.522a1.269 1.269 0 01-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 01-.096 1.03m11.8 11.799a1.269 1.269 0 011.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 01.096-1.03m-14.956.001a1.269 1.269 0 01.096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 011.03.096m11.799-11.8a1.269 1.269 0 01-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 01-1.03-.096"
+          fill="none"
+          stroke="currentColor"
+          stroke-linejoin="round"
+          stroke-width="2"
+        />
+      </Option>
+    );
+  }
+
+  if (type == "Change") {
+    return (
+      <Change viewBox="0 0 24 24" fill="black" role="img">
+        <path d="M8 8.363a1 1 0 00-1-1H4.31a8.977 8.977 0 0114.054-1.727 1 1 0 101.414-1.414A11.003 11.003 0 003 5.672V3.363a1 1 0 10-2 0v5a1 1 0 001 1h5a1 1 0 001-1zm14 6.274h-5a1 1 0 000 2h2.69a8.977 8.977 0 01-14.054 1.727 1 1 0 00-1.414 1.414A11.004 11.004 0 0021 18.33v2.307a1 1 0 002 0v-5a1 1 0 00-1-1z" />
+      </Change>
+    );
+  }
   return (
     <Heart viewBox={"0 0 24 24"} fill={"black"} role={"img"}>
       <path
@@ -99,6 +252,70 @@ const BookMark = styled.svg`
   color: black;
   height: 24px;
   width: 24px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const HomeBtn = styled.svg`
+  color: #262626;
+  height: 24px;
+  width: 24px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const AddBtn = styled.svg`
+  color: rgb(38, 38, 38);
+  height: 24px;
+  width: 24px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const MapBtn = styled.svg`
+  color: #262626;
+  height: 24px;
+  width: 24px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Profile = styled.svg`
+  color: #262626;
+  height: 16px;
+  width: 16px;
+  margin: 10px 0 0 0;
+`;
+
+const SmallMark = styled.svg`
+  color: black;
+  height: 16px;
+  width: 16px;
+  margin: 10px 0 0 0;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Option = styled.svg`
+  color: black;
+  height: 16px;
+  width: 16px;
+  margin: 10px 0 0 0;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Change = styled.svg`
+  color: black;
+  height: 16px;
+  width: 16px;
+  margin: 10px 0 0 0;
   &:hover {
     cursor: pointer;
   }

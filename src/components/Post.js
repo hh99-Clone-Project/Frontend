@@ -4,19 +4,26 @@ import Image from "../elements/Image";
 import Input from "../elements/Input";
 import PostBtn from "../elements/PostBtn";
 
-const Post = () => {
+const Post = (props) => {
+  console.log(props);
   return (
-    <Grid border={"1px solid #DBDBDB"} width={"615px"} height={"900px"}>
+    <Grid
+      margin={props.margin}
+      border="1px solid #DBDBDB"
+      width="615px"
+      height="900px"
+    >
       <Grid height={"72px"} is_flex>
         <Image
           src={require("../static/IU.jpg")}
-          type={"circle"}
-          width={"30px"}
-          height={"30px"}
-          margin={"0 10px"}
+          type="circle"
+          width="30px"
+          height="30px"
+          margin="0 10px"
+          borderTop
         />
         <Grid width={"555px"} height={"100%"} line_height={"72px"}>
-          닉넴
+          {props.nickname}
         </Grid>
         <Grid height={"100%"} line_height={"72px"}>
           <svg style={{ width: "30px", cursor: "pointer" }}>
@@ -26,7 +33,13 @@ const Post = () => {
           </svg>
         </Grid>
       </Grid>
-      <Image height={"613px"} src={require("../static/IU.jpg")}></Image>
+      <Image
+        borderTop
+        borderBottom
+        width="613px"
+        height={"613px"}
+        src={props.imageFile}
+      ></Image>
       <Grid is_flex height={"50px"}>
         <Grid is_flex width={"112px"} height={"24px"} margin={"0 0 0 8px"}>
           <PostBtn />
@@ -38,10 +51,25 @@ const Post = () => {
         </Grid>
       </Grid>
 
-      <Grid height={"160px"}>
-        <Grid height={"103px"}></Grid>
-        <hr style={{ border: "1px solid #EFEFEF" }} />
-        <Grid is_flex height={"53px"}>
+      <Grid height="72px" border="1px solid red"></Grid>
+      <Grid height="33px" line_height="33px">
+        <p
+          style={{
+            width: "580px",
+            letterSpacing: "2px",
+            color: "#828282",
+            fontSize: "10px",
+            margin: "0 0 0 14px",
+          }}
+        >
+          7일 전
+        </p>
+      </Grid>
+
+      <Grid height={"54px"}>
+        <Grid></Grid>
+        <hr style={{ border: "0.5px solid #EFEFEF" }} />
+        <Grid height="53px" is_flex>
           <Input
             margin={"0 0 0 40px"}
             border={"none"}
