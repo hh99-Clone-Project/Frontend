@@ -1,7 +1,7 @@
 import React from "react";
-import Grid from "../elements/Grid";
-import Image from "../elements/Image";
-import Input from "../elements/Input";
+import Grid from "../elements/NGrid";
+import Image from "../elements/NImage";
+import Input from "../elements/NInput";
 import PostBtn from "../elements/PostBtn";
 
 const Post = (props) => {

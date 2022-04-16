@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Grid from "../elements/Grid";
-import Input from "./../elements/Input";
-import Image from "../elements/Image";
-import Button from "./../elements/Button";
+import Grid from "../elements/NGrid";
+import Input from "../elements/NInput";
+import Image from "../elements/NImage";
+import Button from "../elements/NButton";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
