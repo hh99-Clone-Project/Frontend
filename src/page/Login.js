@@ -29,6 +29,25 @@ const LogIn = () => {
     setTimeout(showImage, 2000);
   }
 
+  // ID , password 
+  const [username, setUsername] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
+
+  // Error Msg
+  // const [Message, setMessge] = React.useState("");
+
+  // username 값 가져오기
+  const userCheck = (e) => {
+    const userCurrent = e.target.value;
+    setUsername(userCurrent);
+  }
+
+  // pwd 값 가져오기
+  const pwdCheck = (e) => {
+    setPwd(e.target.value);
+  } 
+
+
   return (
     <React.Fragment>
       {/* phone이미지와 login 영역*/}
@@ -37,10 +56,10 @@ const LogIn = () => {
         className="layout"
         width="850px"
         height="900px"
-        border="5px solid red"
+        // border="5px solid red"
         margin="auto"
       >
-        <Grid className="phoneLayout" border="5px solid red">
+        <Grid className="phoneLayout">
           {/* Random으로 들어가는 phoneLayout */}
           <Image
             shape="rectangle"
@@ -60,7 +79,7 @@ const LogIn = () => {
           />
         </Grid>
 
-        <Grid width="380px" margin="auto" border="5px solid red">
+        <Grid width="380px" margin="auto">
           {/*Login 영역*/}
           <Grid
             margin="70px 0 10px 0"
@@ -83,20 +102,26 @@ const LogIn = () => {
               <Input
                 mainInput
                 placeholder="username"
-                // _onChange={userCheck}
+                _onChange={userCheck}
               ></Input>
               {/* Password 입력 */}
               <Input
                 password
                 placeholder="password"
-                // _onChange={pwdCheck}
+                _onChange={pwdCheck}
               ></Input>
 
               {/* Login Button */}
-              <Button mainButton text="로그인" />
+              <Button 
+                mainButton text="로그인" 
+                margin={"4px 54px"} 
+                width={"260px"}  
+                //_onClick={loginClick}
+                />
+
               {/*only view*/}
             </Grid>
-            <Grid margin="0 0 50px 0" align="center">
+            <Grid margin="0 0 13px 0" align="center">
               <Text color="#8e8e8e">또는</Text>
               <Grid
                 is_flex
@@ -108,8 +133,8 @@ const LogIn = () => {
                   window.alert("준비 중 입니다.");
                 }}
               ></Grid>
-              <Grid is_flex justify="center">
-                <AiFillFacebook size="25" />
+              <Grid is_flex justify="center" margin= "-25px 63px 23px 76px">
+                <AiFillFacebook size="25"/>
                 <Text>Facebook으로 로그인하기</Text>
               </Grid>
 
@@ -128,18 +153,21 @@ const LogIn = () => {
           <Grid
             is_flex
             width="370px"
+            height="74px"
             justify="center"
-            margin="0 0 10px"
+            // margin="0 0 10px"
             // padding="10px 0"
             border="1px solid #dbdbdb"
+            margin= "0"
+
           >
-            <Text size="15px" margin="0 10px 0 0">
+            <Text size="15px" margin="0 -77px 0 80px">
               계정이 없으신가요?
             </Text>
             <Text
               link
               _onClick={() => {
-                // navigator("/signup");
+              navigator("/signup");
               }}
             >
               가입하기
@@ -147,9 +175,9 @@ const LogIn = () => {
           </Grid>
 
           <Grid>
-            <Text align="center">앱을 다운로드하세요.</Text>
+            <Text align="center" margin="16px">앱을 다운로드하세요.</Text>
             {/* 앱 다운로드 image */}
-            <Grid is_flex border="5px solid" width="370px">
+            <Grid is_flex width="370px">
               <Image
                 shape="imgBtn"
                 src="https://www.instagram.com/static/images/appstore-install-badges/badge_ios_korean-ko.png/4a5c9d62d51b.png"
