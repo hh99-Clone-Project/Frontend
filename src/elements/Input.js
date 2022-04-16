@@ -1,14 +1,41 @@
 import React from "react";
 import styled from "styled-components";
+import Text from "./Text";
 
-const Input = () => {
-  return <MainInput></MainInput>;
+const Input = (props) => {
+  const {
+    label,
+    placeholder,
+    _onChange,
+    type,
+    margin,
+    height,
+    width,
+    padding,
+    _value,
+    mainInput,
+    password,
+  } = props;
+
+  if(mainInput){
+    return (
+      <React.Fragment>
+        <MainInput placeholder={placeholder}>
+
+        </MainInput>
+      </React.Fragment>
+    )
+  }
+
+  return <MainInput placeholder={placeholder}></MainInput>;
 };
 
 const MainInput = styled.input`
+  margin: ${(props) => props.margin};
+  text-overflow: ellipsis;
   width: 260px;
   height: 32px;
-  margin: 50px auto;
+  margin: 10px auto;
   border: 1px solid lightgray;
   border-radius: 0.4rem;
   background-color: #fafafa;

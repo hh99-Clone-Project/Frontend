@@ -5,71 +5,80 @@ const Grid = (props) => {
   const {
     is_flex,
     width,
-    margin,
     padding,
+    margin,
     bg,
-    border,
-    bor_radius,
-    shadow,
-    height,
-    line_height,
     color,
     children,
+    _onClick,
+    position,
+    justify,
+    height,
+    overflow,
+    border,
+    radius,
+    className,
+    align,
+    borderB,
+    wrap,
+    cursor,
   } = props;
 
   const styles = {
-    border: border,
     is_flex: is_flex,
     width: width,
+    height: height,
     margin: margin,
     padding: padding,
     bg: bg,
-    bor_radius: bor_radius,
-    shadow: shadow,
-    height: height,
-    line_height: line_height,
     color: color,
+    position: position,
+    justify: justify,
+    overflow: overflow,
+    border: border,
+    radius: radius,
+    className: className,
+    align: align,
+    borderB: borderB,
+    wrap: wrap,
+    cursor: cursor,
   };
 
   return (
-    <>
-      <GridBox {...styles}>{children}</GridBox>
-    </>
+    <React.Fragment>
+      <GridBox {...styles} onClick={_onClick}>
+        {children}
+      </GridBox>
+    </React.Fragment>
   );
 };
 
-Grid.defualtProps = {
-  children: null,
-  border: false,
-  is_flex: false,
-  width: "100%",
-  padding: false,
-  margin: false,
-  bg: false,
-  bor_radius: false,
-  shadow: false,
-  height: "100%",
-  line_height: false,
-  color: false,
+Grid.defaultProps = {
+  _onClick: () => {},
 };
 
 const GridBox = styled.div`
-  border: ${(props) => (props.border ? `${props.border};` : "none;")}
-  ${(props) => (props.bor_radius ? `border-radius: 10px;` : "")}
-  ${(props) => (props.shadow ? `box-shadow: 5px 5px 5px gray;` : "")}
+  /* max-width: 500px; */
   width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  ${(props) => (props.line_height ? `line-height: ${props.line_height};` : "")}
-  ${(props) => (props.color ? `color: ${props.color};` : "black")}
   box-sizing: border-box;
-  word-break:break-all;
+  ${(props) => (props.color ? `color: ${props.color};` : "")}
+  ${(props) => (props.height ? `height: ${props.height};` : "")}
+  ${(props) => (props.justify ? `justify-content: ${props.justify};` : "")}
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-${(props) =>
-  props.is_flex
-    ? `display:flex; align-items:center; justify-content: space-between`
-    : ""}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
+  ${(props) => (props.is_flex ? "display: flex; align-items: center;" : "")}
+  ${(props) => (props.position ? `position: ${props.position};` : "")}
+  ${(props) => (props.border ? `border: ${props.border};` : "")}
+  ${(props) => (props.borderB ? `border-bottom: ${props.borderB};` : "")}
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
+  ${(props) => (props.overflow ? `overflow: ${props.overflow};` : "")}
+  ${(props) => (props.className ? `className: ${props.className};` : "")}
+  ${(props) => (props.align ? `text-align: ${props.align};` : "")}
+  ${(props) => (props.wrap ? `flex-wrap: ${props.wrap};` : "")}
+  ${(props) => (props.cursor ? `cursor: ${props.cursor};` : "")}
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
-
 export default Grid;

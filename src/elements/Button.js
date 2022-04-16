@@ -2,11 +2,48 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { onClick, width, height } = props;
-  const styles = { width, height };
+  const { 
+    onClick, 
+    width, 
+    height, 
+    text, 
+    _onClick,
+    children,
+    margin,
+    padding,
+    disabled,
+    radius,
+    bgColor,
+    opacity,
+    color,
+    className,
+    mainButton,
+  } = props;
+
+  const styles = {
+    margin: margin,
+    width: width,
+    padding: padding,
+    disabled: disabled,
+    radius: radius,
+    bgColor: bgColor,
+    opacity: opacity,
+    color: color,
+    className: className,
+  }
+  if(mainButton){
+    return(
+    <React.Fragment>
+      <MainButton {...styles} onClick={_onClick}>
+        {text ? text : children}
+      </MainButton>
+    </React.Fragment>
+    );
+  }
+
   return (
     <ElButton onClick={onClick} {...styles}>
-      버튼
+      {text ? text : children}
     </ElButton>
   );
 };
@@ -15,6 +52,7 @@ Button.defaultProps = {
   width: "270px",
   height: "30px",
   lineHeight: "30px",
+  mainButton: false,
 };
 
 const ElButton = styled.div`
@@ -30,4 +68,21 @@ const ElButton = styled.div`
   cursor: pointer;
 `;
 
+//로그인, 회원가입화면 버튼
+const MainButton = styled.div`
+  background-color: #B2DFFC;
+  color: #ffffff;
+  font-size: 14px;
+  margin: 15px 40px;
+  padding: 5px 9px;
+  width: 268px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  justify-content: center;
+  display: flex;
+  line-height: 1.5;
+  cursor: pointer;
+`;
 export default Button;
