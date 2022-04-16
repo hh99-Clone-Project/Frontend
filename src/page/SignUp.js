@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Grid from "../elements/NGrid";
+import NGrid from "../elements/NGrid";
 import Input from "../elements/NInput";
 import Image from "../elements/NImage";
 import Button from "../elements/NButton";
@@ -31,17 +31,17 @@ const SignUp = () => {
   };
 
   return (
-    <Grid height={"100vh"} border={"1px solid #FAFAFA"} bg={"#FAFAFA"}>
-      <Grid
+    <NGrid height={"100vh"} border={"1px solid #FAFAFA"} bg={"#FAFAFA"}>
+      <NGrid
         margin={"250px auto 0 auto"}
         border={"1px solid #DBDBDB"}
         height={"500px"}
         width={"350px"}
         bg={"#ffffff"}
       >
-        <Grid width={"175px"} margin={"0 auto"} padding={"40px 0 10px 0"}>
+        <NGrid width={"175px"} margin={"0 auto"} padding={"40px 0 10px 0"}>
           <Image src={require("../static/logo.png")}></Image>
-        </Grid>
+        </NGrid>
         <h2
           style={{
             width: "268px",
@@ -54,7 +54,7 @@ const SignUp = () => {
           친구들의 사진과 동영상을 보려면 가입하세요.
         </h2>
         <Button margin={"20px auto 10px auto"}>Facebook으로 로그인</Button>
-        <Grid width={"270px"} is_flex margin={"20px auto 10px auto"}>
+        <NGrid width={"270px"} is_flex margin={"20px auto 10px auto"}>
           <div
             style={{
               backgroundColor: "rgba(var(--b38,219,219,219),1)",
@@ -70,8 +70,8 @@ const SignUp = () => {
               width: "100px",
             }}
           ></div>
-        </Grid>
-        <Grid padding={"5px 0 0 0"} width={"262px"} height={"197px"}>
+        </NGrid>
+        <NGrid padding={"5px 0 0 0"} width={"262px"} height={"197px"}>
           <Input
             margin={"5px auto"}
             onChange={changeId}
@@ -93,13 +93,13 @@ const SignUp = () => {
             placehorder={"비밀번호 확인"}
             type={"password"}
           />
-        </Grid>
+        </NGrid>
         <Button onClick={signUp} margin={"-10px auto"}>
           가입
         </Button>
-      </Grid>
-      <Grid>
-        <Grid
+      </NGrid>
+      <NGrid>
+        <NGrid
           bg={"#ffffff"}
           margin={"10px auto"}
           border={"1px solid lightgray"}
@@ -120,9 +120,9 @@ const SignUp = () => {
               로그인
             </a>
           </p>
-        </Grid>
-      </Grid>
-      <Grid width={"350px"} height={"100px"}>
+        </NGrid>
+      </NGrid>
+      <NGrid width={"350px"} height={"100px"}>
         <p
           style={{
             textAlign: "center",
@@ -132,7 +132,7 @@ const SignUp = () => {
         >
           앱을 다운로드하세요.
         </p>
-        <Grid is_flex width={"280px"}>
+        <NGrid is_flex width={"280px"}>
           <Image
             width={"135px"}
             height={"40px"}
@@ -143,9 +143,9 @@ const SignUp = () => {
             height={"40px"}
             src={require("../static/playStore.png")}
           />
-        </Grid>
-      </Grid>
-    </Grid>
+        </NGrid>
+      </NGrid>
+    </NGrid>
   );
 };
 

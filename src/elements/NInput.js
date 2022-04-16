@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = (props) => {
+const NInput = (props) => {
   const { border, margin, placehorder, type, onChange, shape } = props;
   const styles = { margin, border };
 
@@ -50,13 +50,5 @@ const Textarea = styled.textarea`
   }
 `;
 
-const ElInput = styled.input`
-  border: 1px solid #87cefa;
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  padding: ${(props) => props.padding};
-  box-sizing: border-box;
-  margin: ${(props) => props.margin};
-`;
 
-export default Input;
+export default NInput;

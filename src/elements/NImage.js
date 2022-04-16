@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Image = (props) => {
+const NImage = (props) => {
   const { src, width, height, margin, type, borderTop, borderBottom, onClick } =
     props;
   const styles = { width, height, margin, borderTop, borderBottom };
@@ -37,4 +37,4 @@ const CircleImg = styled.img`
   }
 `;
 
-export default Image;
+export default NImage;
