@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NGrid from "../elements/NGrid";
 import Input from "../elements/NInput";
 import Image from "../elements/NImage";
@@ -7,6 +7,17 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
 const SignUp = () => {
+  // const [inputs, setInputs] = useState({
+  //   id: "",
+  //   nickname: "",
+  //   pw:""
+  // })
+
+  // const { id, nickname, pw } = inputs;
+  // const onChange = e => {
+  //   setInputs({})
+  // }
+
   const [id, setId] = useState();
   const [nickname, setNickname] = useState();
   const [pw, setPw] = useState();

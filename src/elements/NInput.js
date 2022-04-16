@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const NInput = (props) => {
-  const { border, margin, placehorder, type, onChange, shape } = props;
-  const styles = { margin, border };
+  const { border, margin, placehorder, type, Display, onChange, shape } = props;
+  const styles = { margin, border, Display };
 
-  if (shape == "textarea") {
+  if (shape === "textarea") {
     return (
       <Textarea
         placeholder={placehorder}
@@ -25,15 +25,21 @@ const NInput = (props) => {
   );
 };
 
+NInput.defaultProps = {
+  border: "1px solid lightgray",
+  Display: false,
+};
+
 const MainInput = styled.input`
   width: 260px;
   height: 37px;
-  border: 1px solid lightgray;
+  border: ${(props) => props.border};
   padding: 0 0 0 5px;
   border-radius: 1px;
   background-color: #fafafa;
   font-size: 12px;
   ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
+  ${(props) => (props.Display ? `display: none;` : null)}
   &:focus {
     outline: none;
   }
@@ -49,6 +55,5 @@ const Textarea = styled.textarea`
     outline: none;
   }
 `;
-
 
 export default NInput;

@@ -2,6 +2,9 @@ import Modal from "react-modal";
 import NGrid from "../elements/NGrid";
 import NImage from "../elements/NImage";
 import Textarea from "./../elements/Textarea";
+import PostBtn from "../elements/PostBtn";
+import NInput from "../elements/NInput";
+import { useState } from "react";
 
 const styles = {
   overlay: {
@@ -30,10 +33,30 @@ const styles = {
 };
 
 const AddPostModal = (props) => {
-  const { addPost, setAddPost, addPostClose } = props;
+  const { addPost, setAddPost } = props;
+  const [preImg, setPreImg] = useState();
+
+  const setPreview = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      setPreImg(reader.result);
+    };
+  };
+
   return (
     <>
-      <Modal isOpen={addPost} style={styles} onRequestClose={addPostClose}>
+      <Modal
+        isOpen={addPost}
+        style={styles}
+        onRequestClose={() => {
+          setAddPost(false);
+          setPreImg(null);
+        }}
+      >
         <NGrid>
           <div
             style={{
@@ -50,14 +73,48 @@ const AddPostModal = (props) => {
             <p>새 게시물 만들기</p>
           </div>
           <NGrid is_flex>
-            <div
-              style={{
-                width: "860px",
-                height: "852px",
-                margin: "0 0 0 0",
-                borderRight: "1px solid #DBDBDB",
-              }}
-            ></div>
+            {preImg ? (
+              <label
+                style={{
+                  width: "860px",
+                  height: "852px",
+                  margin: "0 0 0 0",
+                  borderRight: "1px solid #DBDBDB",
+                }}
+              >
+                <NImage width="98%" src={preImg} />
+              </label>
+            ) : (
+              <label
+                style={{
+                  width: "860px",
+                  height: "852px",
+                  margin: "0 0 0 0",
+                  borderRight: "1px solid #DBDBDB",
+                }}
+              >
+                <NGrid width="96px" margin="358px auto">
+                  <PostBtn type="Upload" />
+                  <NInput
+                    type="file"
+                    border="none"
+                    Display
+                    onChange={setPreview}
+                  />
+                  <p
+                    style={{
+                      width: "290px",
+                      fontWeight: "300",
+                      fontSize: "22px",
+                      margin: "0 0 0 -97px",
+                    }}
+                  >
+                    클릭하여 사진을 추가하세요!
+                  </p>
+                </NGrid>
+              </label>
+            )}
+
             <div
               style={{
                 width: "338px",

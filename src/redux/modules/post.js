@@ -28,9 +28,12 @@ export const deleteDB = () => {
 };
 
 //리듀서
-export default handleActions({
-  [ADDPOST]: (state, action) => produce(state, (draft) => {}),
-  [UPDATE]: (state, action) => produce(state, (draft) => {}),
-  [DELETE]: (state, action) => produce(state, (draft) => {}),
-  [GETPOST]: (state, action) => produce(state, (draft) => {}),
-});
+export default handleActions(
+  {
+    [ADDPOST]: (state, action) => produce(state, (draft) => {}),
+    [UPDATE]: (state, action) => produce(state, (draft) => {}),
+    [DELETE]: (state, action) => produce(state, (draft) => {}),
+    [GETPOST]: (state, action) => produce(state, (draft) => {}),
+  },
+  initialState
+);
