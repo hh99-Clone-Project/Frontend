@@ -9,11 +9,18 @@ const Main = (props) => {
   return (
     <>
       <Header />
-      <Grid width="940px">
-        {_postList.map((cur, idx) => {
-          return <Post key={cur.postId} {...cur} margin="25px 0 0 0" />;
-        })}
-      </Grid>
+      <div
+        style={{
+          height: "100%",
+          backgroundColor: "#FAFAFA",
+        }}
+      >
+        <Grid width="940px">
+          {_postList.map((cur, idx) => {
+            return <Post key={cur.postId} {...cur} margin="25px 0 0 0" />;
+          })}
+        </Grid>
+      </div>
     </>
   );
 };

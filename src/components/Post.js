@@ -12,6 +12,7 @@ const Post = (props) => {
       border="1px solid #DBDBDB"
       width="615px"
       height="900px"
+      bg="#ffffff"
     >
       <Grid height={"72px"} is_flex>
         <Image
