@@ -70,7 +70,18 @@ const AddPostModal = (props) => {
               fontSize: "16px",
             }}
           >
-            <p>새 게시물 만들기</p>
+            <NGrid is_flex margin="0 0 0 533px" width="665px">
+              <p style={{ margin: "0" }}>새 게시물 만들기 </p>
+              <span
+                style={{
+                  color: "#0095F6",
+                  margin: "0 10px 0 0",
+                  cursor: "pointer",
+                }}
+              >
+                공유하기
+              </span>
+            </NGrid>
           </div>
           <NGrid is_flex>
             {preImg ? (
