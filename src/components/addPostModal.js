@@ -4,7 +4,9 @@ import NImage from "../elements/NImage";
 import Textarea from "./../elements/Textarea";
 import PostBtn from "../elements/PostBtn";
 import NInput from "../elements/NInput";
+import { uploadPost } from "../redux/modules/post";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const styles = {
   overlay: {
@@ -33,8 +35,22 @@ const styles = {
 };
 
 const AddPostModal = (props) => {
+  const dispatch = useDispatch();
   const { addPost, setAddPost } = props;
+  const [content, setContent] = useState(null);
   const [preImg, setPreImg] = useState();
+
+  const addContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  const upload = () => {
+    const data = {
+      images: preImg,
+      contents: content,
+    };
+    dispatch(uploadPost(data));
+  };
 
   const setPreview = (e) => {
     const file = e.target.files[0];
@@ -55,6 +71,7 @@ const AddPostModal = (props) => {
         onRequestClose={() => {
           setAddPost(false);
           setPreImg(null);
+          setContent(null);
         }}
       >
         <NGrid>
@@ -73,10 +90,12 @@ const AddPostModal = (props) => {
             <NGrid is_flex margin="0 0 0 533px" width="665px">
               <p style={{ margin: "0" }}>새 게시물 만들기 </p>
               <span
+                onClick={upload}
                 style={{
                   color: "#0095F6",
                   margin: "0 10px 0 0",
                   cursor: "pointer",
+                  visibility: content && preImg ? "visible" : "hidden",
                 }}
               >
                 공유하기
@@ -142,9 +161,20 @@ const AddPostModal = (props) => {
                   margin="0 0 0 15px"
                   type="circle"
                 />
-                <p style={{ margin: "0 230px 0 0" }}>닉네임</p>
+                <p
+                  style={{
+                    width: "285px",
+                    margin: "0",
+                  }}
+                >
+                  국힙원탑아이유
+                </p>
               </NGrid>
-              <Textarea width="338px" height="220px"></Textarea>
+              <Textarea
+                onChange={addContent}
+                width="338px"
+                height="220px"
+              ></Textarea>
             </div>
           </NGrid>
         </NGrid>

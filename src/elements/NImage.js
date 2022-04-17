@@ -4,6 +4,7 @@ import styled from "styled-components";
 const NImage = (props) => {
   const {
     src,
+    border,
     width,
     height,
     margin,
@@ -13,7 +14,7 @@ const NImage = (props) => {
     onClick,
     onChange,
   } = props;
-  const styles = { width, height, margin, borderTop, borderBottom };
+  const styles = { width, height, margin, borderTop, borderBottom, border };
 
   if (type === "circle") {
     return <CircleImg onClick={onClick} src={src} {...styles}></CircleImg>;
@@ -24,6 +25,8 @@ const NImage = (props) => {
 Image.defaultProps = {
   borderTop: false,
   borderBottom: false,
+  border: "none",
+  margin: false,
 };
 
 const Img = styled.img`
@@ -32,6 +35,7 @@ const Img = styled.img`
   ${(props) => (props.borderTop ? `border-top: 1px solid #DBDBDB;` : null)}
   ${(props) =>
     props.borderBottom ? `border-bottom: 1px solid #DBDBDB;` : null}
+    ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
   object-fit: scale-down;
 `;
 

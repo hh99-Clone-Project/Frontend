@@ -1,10 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import Input from "../elements/NInput";
 import PostBtn from "../elements/PostBtn";
+import PostModal from "./PostModal";
+import UpdateModal from "./UpdateModal";
 
 const Post = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [detail, setDetail] = useState(false);
+
+  const detailOpen = () => {
+    setIsOpen(true);
+  };
+
   return (
     <NGrid
       margin={props.margin}
@@ -26,7 +35,10 @@ const Post = (props) => {
           {props.nickname}
         </NGrid>
         <NGrid height={"100%"} line_height={"72px"}>
-          <svg style={{ width: "30px", cursor: "pointer" }}>
+          <svg
+            onClick={detailOpen}
+            style={{ width: "30px", cursor: "pointer" }}
+          >
             <circle cx="12" cy="34" r="1.5" />
             <circle cx="6" cy="34" r="1.5" />
             <circle cx="18" cy="34" r="1.5" />
@@ -88,6 +100,16 @@ const Post = (props) => {
           </p>
         </NGrid>
       </NGrid>
+      {isOpen ? (
+        <PostModal
+          data={props}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          setDetail={setDetail}
+        />
+      ) : null}
+
+      <UpdateModal isOpen={detail} setIsOpen={setDetail} data={props} />
     </NGrid>
   );
 };

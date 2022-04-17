@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import PostBtn from "../elements/PostBtn";
@@ -49,7 +49,9 @@ const Header = () => {
           modalClose={modalClose}
         />
       ) : null}
-      <AddPostModal setAddPost={setAddPost} addPost={addPost} />
+      {addPost ? (
+        <AddPostModal setAddPost={setAddPost} addPost={addPost} />
+      ) : null}
     </NGrid>
   );
 };
