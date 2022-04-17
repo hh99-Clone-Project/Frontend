@@ -2,9 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const Textarea = (props) => {
-  const { width, height } = props;
+  const { width, height, onChange, defaultValue } = props;
   const styles = { width, height };
-  return <Textinput {...styles} placeholder="문구 입력..."></Textinput>;
+  return (
+    <Textinput
+      {...styles}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      placeholder="문구 입력..."
+    ></Textinput>
+  );
 };
 
 Textarea.defaultProps = {
