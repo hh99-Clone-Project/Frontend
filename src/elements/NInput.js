@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const NInput = (props) => {
-  const { border, margin, placehorder, type, Display, onChange, shape } = props;
+  const { border, margin, placehorder, type, Display, onChange, shape, name } =
+    props;
   const styles = { margin, border, Display };
 
   if (shape === "textarea") {
@@ -17,6 +18,7 @@ const NInput = (props) => {
 
   return (
     <MainInput
+      name={name}
       type={type}
       placeholder={placehorder}
       {...styles}
