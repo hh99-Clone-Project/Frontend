@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 import { Grid, Image, Input, Button, Text } from "../elements/index";
 import { AiFillFacebook } from "react-icons/ai";
 import styled from "styled-components";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import Footer from "../components/Footer";
 
 const LogIn = () => {
   const dispatch = useDispatch();
-
   const [RandomPic, setRadomPic] = useState();
+  
+  const navigate = useNavigate();
 
   const imgArray = [
     "https://www.instagram.com/static/images/homepage/screenshots/screenshot1.png/fdfe239b7c9f.png",
@@ -28,25 +31,36 @@ const LogIn = () => {
     setRadomPic(imgArray[imgNum]);
     setTimeout(showImage, 2000);
   }
-
-  // ID , password 
-  const [username, setUsername] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
-
+  
   // Error Msg
   // const [Message, setMessge] = React.useState("");
-
+  
   // username 값 가져오기
   const userCheck = (e) => {
     const userCurrent = e.target.value;
     setUsername(userCurrent);
   }
-
+  
   // pwd 값 가져오기
   const pwdCheck = (e) => {
     setPwd(e.target.value);
   } 
-
+  
+  // ID , password 
+  const [ username, setUsername ] = React.useState("");
+  const [ pwd, setPwd ] = React.useState("");
+  
+  const loginClick = () => {
+    // if(!username || !pwd){
+    //   alert("please fill in the blanks");
+    //   return;
+    // };
+    console.log(username,pwd); 
+    dispatch(userActions.loginApi(username,pwd,navigate));
+    
+    //navigate("/main",{replace:true});
+    console.log("test"); 
+  }
 
   return (
     <React.Fragment>
@@ -121,7 +135,7 @@ const LogIn = () => {
                 mainButton text="로그인" 
                 margin={"4px 54px"} 
                 width={"260px"}  
-                //_onClick={loginClick}
+                _onClick={loginClick}
                 />
 
               {/*only view*/}

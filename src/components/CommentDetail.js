@@ -9,14 +9,15 @@ import { Link } from "react-router-dom";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { IoMdPaperPlane } from "react-icons/io";
-import { IoChatbubbleOutline } from "react-icons/io5";
+import {  RiChat1Line } from "react-icons/ri";
+
 import { RiBookmarkLine } from "react-icons/ri";
 import { CgSmile } from "react-icons/cg";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.min.css";
-import "swiper/components/navigation/navigation.min.css";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import "swiper/swiper.min.css";
+// import "swiper/components/navigation/navigation.min.css";
+// import SwiperCore, { Navigation, Pagination } from "swiper";
 
 const CommentDetail = (props) => {
   const dispatch = useDispatch();
@@ -50,6 +51,8 @@ const CommentDetail = (props) => {
   // }
 
   //  const comments = useSelector((store) => store.comment.list);
+   const comments = null
+
    const changeComment = (e) => {
      setHasComment(e.target.value);
    };
@@ -76,35 +79,13 @@ const CommentDetail = (props) => {
      //dispatch(deleteCommentDB(postId, commentId1));
    };
  
-   SwiperCore.use([Navigation, Pagination]);
- 
-   const swiperParams = {
-     navigation: true,
-     pagination: true,
-   };
- 
 
-  return (
-    <>
+   console.log("test : ", commentInfoModal);
+
+   return (
+     <>
       <Modal visible={visible} maxWidth="900px" outline="none">
         <ModalArea>
-          {/* <Swiper {...swiperParams}>
-            <LeftArea>
-              {imgUrl.map((img, key) => {
-                return (
-                  <SwiperSlide
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Img src={img} alt="detailImg" />
-                  </SwiperSlide>
-                );
-              })}
-            </LeftArea>
-          </Swiper> */}
           <LeftArea
             style={{
               display: "flex",
@@ -114,9 +95,15 @@ const CommentDetail = (props) => {
           >
             <Img src={require("../static/IU.jpg")} />
           </LeftArea>
+
           <RightArea>
             <WriterInfo>
-              <Link to="/">
+              <Link
+                to="/"
+                style={{
+                  margin: "0 0px 0 -10px",
+                }}
+              >
                 <PostTitleImgArea>
                   {/* <PostTitleImg src={postProfileUrl} alt="프로필 이미지" /> */}
                   <PostTitleImg
@@ -125,13 +112,21 @@ const CommentDetail = (props) => {
                   />
                 </PostTitleImgArea>
               </Link>
-              <Link to="/">
+              <Link to="/" style={{
+                  margin: "0 5px 0 -10px",
+                  textDecoration: "none", color: "black" 
+                }}
+                >
                 {/* <PostTitle>{postUsername}</PostTitle> */}
-                <PostTitle>JiEun</PostTitle>
+                <PostTitle> JiEun </PostTitle>
               </Link>
-              •<Follow>팔로우</Follow>
               <MenuArea>
-                <BsThreeDots size="20" />
+                •<Follow >팔로우</Follow>
+                <BsThreeDots size="20" 
+                  onClick={() => {
+                    setCommentInfoModal(true);
+                    console.log(commentInfoModal);
+                  }}/>
               </MenuArea>
             </WriterInfo>
 
@@ -145,10 +140,10 @@ const CommentDetail = (props) => {
                       paddingTop: "20px",
                     }}
                   >
-                    <Link to="/">
-                      <PostTitle style={{ marginBottom: "10px" }}>
+                    <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                      <PostTitle style={{ marginBottom: "10px"}} >
                         {/* {postUsername} */}
-                        jiEun
+                        JiEun
                       </PostTitle>
                     </Link>
                     {/* {postContent &&
@@ -170,6 +165,111 @@ const CommentDetail = (props) => {
                       />
                     </PostTitleImgArea>
                   </div>
+
+                  {comments &&
+                    comments.map((comment, key) => {
+                      const commentId1 = comment.id;
+                      return (
+                        <Comments key={key} id={key}>
+                          <PostTitle>{comment.username}</PostTitle>
+                          <Commentna>
+                            {comment.content &&
+                              comment.content
+                                .split("\n")
+                                .map((content, index) => {
+                                  return <div key={index}>{content}</div>;
+                                })}
+                          </Commentna>
+                          <CommentFooter>
+                            <Link to="/">
+                              <ModifiedAt>방금전</ModifiedAt>
+                            </Link>
+
+                            <Like>좋아요 0개</Like>
+
+                            <ReComment>답글 달기</ReComment>
+                          </CommentFooter>
+                          <PostTitleImgArea
+                            style={{
+                              position: "absolute",
+                              top: "-20px",
+                              left: "-10px",
+                            }}
+                          >
+                            {(comment.profileUrl && (
+                              <PostTitleImg
+                                // src={`http://XX.XXX.XXX.XXX/${comment.profileUrl}`}
+                                alt="프로필 이미지"
+                              />
+                            )) || (
+                              <PostTitleImg
+                                src="https://image.similarpng.com/very-thumbnail/2020/06/Instagram-logo-transparent-PNG.png"
+                                alt="프로필사진X"
+                              />
+                            )}
+                          </PostTitleImgArea>
+                          <ThreeDotsArea
+                            id="dots"
+                            onClick={() => {
+                              console.log("1");
+                              setCommentInfoModal(true);
+                            }}
+                          >
+                            <BsThreeDots />
+                          </ThreeDotsArea>
+
+                          <AiOutlineHeart
+                            size="13"
+                            style={{
+                              position: "absolute",
+                              top: "0",
+                              right: "10px",
+                            }}
+                          />
+                          {/* {commentInfoModal && (
+                          )} */}
+                            <Modal
+                              visible={commentInfoModal}
+                              width="400px"
+                              borderRadius="10px"
+                              zIndex="1000"
+                              position="relative"
+                            >
+                              <ModalWrap
+                                style={{ color: "red", fontWeight: "900" }}
+                              >
+                                신고
+                              </ModalWrap>
+                              {comment.username ===
+                                localStorage.getItem("username") && (
+                                <ModalWrap
+                                  style={{ color: "red", fontWeight: "900" }}
+                                  onClick={() => {
+                                    deleteComment(commentId1);
+                                    setCommentInfoModal(false);
+                                  }}
+                                >
+                                  삭제
+                                </ModalWrap>
+                              )}
+                              <ModalWrap
+                                style={{ color: "red", fontWeight: "900" }}
+                              >
+                                팔로우
+                              </ModalWrap>
+                              <ModalWrap>공유 대상...</ModalWrap>
+                              <ModalWrap>링크 복사</ModalWrap>
+                              <ModalWrap>퍼가기</ModalWrap>
+                              <ModalWrap
+                                onClick={() => setCommentInfoModal(false)}
+                                style={{ border: "none" }}
+                              >
+                                취소
+                              </ModalWrap>
+                            </Modal>
+                        </Comments>
+                      );
+                    })}
                 </Contents>
               </Scroll>
             </ContentArea>
@@ -190,16 +290,17 @@ const CommentDetail = (props) => {
                   />
                 )}
 
-                <Link to="/">
-                  <IoChatbubbleOutline size="28" style={{ margin: "8px" }} />
+                <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                  {/* <IoChatbubbleOutline size="28" style={{ margin: "8px" }} /> */}
+                  <RiChat1Line size="28" style={{ margin: "8px" }} />
                 </Link>
-                <Link to="/direct">
+                <Link to="/direct" style={{ textDecoration: "none", color: "black" }}>
                   <IoMdPaperPlane size="28" style={{ margin: "8px" }} />
                 </Link>
-                <Link to="/">
+                <Link to="/" style={{ textDecoration: "none", color: "black" }}>
                   <RiBookmarkLine
                     size="28"
-                    style={{ position: "absolute", top: "10px", right: "8px" }}
+                    style={{ position: "absolute", top: "10px", right: "8px"}}
                   />
                 </Link>
 
@@ -249,9 +350,7 @@ Comment.defaultProps = {
       display: flex;
       box-sizing: border-box;
     }
-    /* @media (width < 600) {
-      display: block;
-    } */
+    
   `;
   
   const LeftArea = styled.div`
@@ -272,7 +371,7 @@ Comment.defaultProps = {
   const WriterInfo = styled.div`
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #999;
+    border-bottom: 1.5px solid #F2F2F2;
     position: relative;
   `;
   
@@ -302,10 +401,9 @@ Comment.defaultProps = {
   const PostTitle = styled.div`
     font-weight: bold;
     cursor: pointer;
-    margin-right: 5px;
-    &:hover {
-      text-decoration: underline;
-    }
+    margin: 0 0 0 0 
+    // margin-right: 0px;
+    align-items: left;
   `;
   
   const Follow = styled.div`
@@ -315,10 +413,11 @@ Comment.defaultProps = {
     cursor: pointer;
   `;
   
+  // position: absolute;
+  // right: 10px;
   const MenuArea = styled.div`
-    position: absolute;
-    right: 10px;
     cursor: pointer;
+    z-index: 9999;
   `;
   
   const ContentArea = styled.div`
@@ -335,12 +434,15 @@ Comment.defaultProps = {
     padding: 20px 0 40px;
   `;
   
-  const ThreeDotsArea = styled.span`
+  const ThreeDotsArea = styled.div`
     position: absolute;
     top: 0;
     right: 30px;
     color: #fff;
     cursor: pointer;
+    background-color: red;
+    width: 20px;
+    height: 20px;
   `;
   
   const Comments = styled.div`
@@ -401,7 +503,7 @@ Comment.defaultProps = {
   
   const Message = styled.textarea`
     width: 100%;
-    height: 100%;
+    height: 30%;
     max-height: 80px;
     outline: none;
     border: 0;
@@ -414,7 +516,7 @@ Comment.defaultProps = {
   `;
   
   const Commenting = styled.div`
-    width: 40px;
+    width: 50px;
     color: rgba(var(--d69, 0, 149, 246), 1);
     cursor: pointer;
   `;

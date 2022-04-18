@@ -33,12 +33,12 @@ export default function Posting({
 }
 
 Posting.propTypes = {
-  visible: PropTypes.bool,
+  visible: false,
 };
 
 const ModalWrapper = styled.div`
-  box-sizing: border-box;
   display: ${(props) => (props.visible ? "block" : "none")};
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   right: 0;
@@ -50,8 +50,8 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalOverlay = styled.div`
-  box-sizing: border-box;
   display: ${(props) => (props.visible ? "block" : "none")};
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
@@ -67,6 +67,7 @@ const ModalInner = styled.div`
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
   border-radius: ${(props) => props.borderRadius};
+  // border-radius: 10px;
   width: ${(props) => props.width};
   max-width: ${(props) => props.maxWidth};
   top: 50%;

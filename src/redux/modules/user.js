@@ -32,31 +32,32 @@ export const signUpDB = (userInfo) => {
   };
 };
 
-const loginApi = (user) => {
-  return async function (dispatch, getState, {history}){
-      try {
-          const login = await axios.post('http://XX.XXX.XX.XXX/user/login',{
-              username: user.username,
-              password: user.pwd,
+const loginApi = (username,pwd,navigate) => {
+  return async function (dispatch, getState, navigate){
+    console.log(username,pwd,navigate);  
+    try {
+          const login = await axios.post('http://3.35.52.88/user/login',{
+              // username: user.username,
+              // password: user.pwd,
           });
-          if(!login.data){
+          if(login.data){
               alert(`로그인 성공`);
-              history.replace('/');
+              navigate('/main');
               
               const token = login.headers.authorization.split('BEARER ');
               localStorage.setItem('token', token[1]);
             
-              dispatch(
-                logIn({
-                  username: user.username,
-                })
-              );
+              // dispatch(
+              //   logIn({
+              //     username: user.username,
+              //   })
+              // );
               
           } else {
-              alert('닉네입과 패스워드를 다시 확인해주세요.');
+              alert('닉네임과 패스워드를 다시 확인해주세요.');
           };
       }catch(err) {
-          window.alert('닉네임과 패스워드를 다시 확인해주세요.');
+          window.alert('닉네임과 패스워드를 다시 확인해주세요11.');
           console.log('Error', err);
       };
   };

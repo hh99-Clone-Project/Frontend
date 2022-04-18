@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import NGrid from "../elements/NGrid";
 import NImage from "../elements/NImage";
-import Textarea from "./../elements/Textarea";
+import Textarea from "../elements/Textarea";
 import PostBtn from "../elements/PostBtn";
 import NInput from "../elements/NInput";
 import { uploadPost } from "../redux/modules/post";

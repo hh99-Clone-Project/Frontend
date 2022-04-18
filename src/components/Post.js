@@ -9,7 +9,7 @@ import UpdateModal from "./UpdateModal";
 // test modal 추가 - tspark20220417
 import styled from "styled-components";
 import CommentDetail from "./CommentDetail"
-
+import { AiOutlineClose } from "react-icons/ai";
 
 const Post = (props) => {
 
@@ -25,7 +25,6 @@ const Post = (props) => {
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
 
-  const [contentMore, setContentMore] = useState(false);
   const [commentShow, setCommentShow] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
   /* tspark20220417 - end */
@@ -157,6 +156,20 @@ const Post = (props) => {
               liked={liked}
               like={like}
             />
+            <ClosePosting
+
+              // onRequestClose={() => {
+              //   setCommentModal(false);
+              //   setCommentShow(false);
+              // }}
+
+              onClick={() => {
+                setCommentModal(false);
+                setCommentShow(false);
+              }}
+            >
+              <AiOutlineClose size="30" color="#fff" />
+            </ClosePosting>
           </>
         )}
         {/*  tspark20220417-End */}
@@ -176,11 +189,20 @@ const Post = (props) => {
   );
 };
 
+ /* tspark20220417 - start */
 const CommentsShow = styled.div`
   color: #999;
   padding: 6px 16px;
   cursor: pointer;
 `;
 
+const ClosePosting = styled.div`
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  z-index: 1000;
+`;
+ /* tspark20220417 - end */
 
 export default Post;
