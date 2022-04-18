@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Text } from "../elements/";
+import { Grid, Text } from "../elements";
 
 const Footer = () => {
   return (
