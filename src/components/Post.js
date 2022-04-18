@@ -11,15 +11,14 @@ import styled from "styled-components";
 import CommentDetail from "./CommentDetail"
 import { AiOutlineClose } from "react-icons/ai";
 
+
 const Post = (props) => {
-
-  console.log(props);
-
   /* tspark20220417 - start */
   const post = props;
   const postId = post.postId;
   // const imgUrl = post.imgUrl.split(",");
-  const imgUrl = "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png";
+  const imgUrl =
+    "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png";
   const liked = props.liked;
   const [like, setLike] = useState(props.liked);
   const [delLiked, setDelLiked] = useState(0);
