@@ -73,9 +73,9 @@ const MainButton = styled.div`
   background-color: #b2dffc;
   color: #ffffff;
   font-size: 14px;
-  margin: 15px 40px;
+  margin: ${(props) => props.margin};
   padding: 5px 9px;
-  width: 268px;
+  width: ${(props) => props.width};
   height: 30px;
   border: none;
   border-radius: 5px;

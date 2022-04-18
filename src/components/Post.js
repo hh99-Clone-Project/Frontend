@@ -6,7 +6,30 @@ import PostBtn from "../elements/PostBtn";
 import PostModal from "./PostModal";
 import UpdateModal from "./UpdateModal";
 
+// test modal 추가 - tspark20220417
+import styled from "styled-components";
+import CommentDetail from "./CommentDetail"
+
+
 const Post = (props) => {
+
+  console.log(props);
+
+  /* tspark20220417 - start */
+  const post = props;
+  const postId = post.postId;
+  // const imgUrl = post.imgUrl.split(",");
+  const imgUrl = "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png";
+  const liked = props.liked;
+  const [like, setLike] = useState(props.liked);
+  const [delLiked, setDelLiked] = useState(0);
+  const [addLiked, setAddLiked] = useState(0);
+
+  const [contentMore, setContentMore] = useState(false);
+  const [commentShow, setCommentShow] = useState(false);
+  const [commentModal, setCommentModal] = useState(false);
+  /* tspark20220417 - end */
+
   const [isOpen, setIsOpen] = useState(false);
   const [detail, setDetail] = useState(false);
 
@@ -99,6 +122,44 @@ const Post = (props) => {
             게시
           </p>
         </NGrid>
+
+        {/*  tspark20220417-Start */}
+        <CommentsShow
+          onClick={() => {
+            setCommentShow(true);
+            setCommentModal(true);
+          }}
+        >
+          댓글 보기Test
+        </CommentsShow>
+        {commentModal && (
+          <>
+            <CommentDetail
+              //visible={commentModal}
+              //postId={postId}
+              //imgUrl={imgUrl}
+              //postUsername={post.username}
+              // postUserImg={post.profileUrl}
+              // postContent={post.content}
+              // postCreatedAt={post.createdAt}
+              // postNumOfLikes={post.numOfLikes}
+              //liked={liked}
+              //like={like}
+
+              visible={commentModal}
+              postId={postId}
+              imgUrl={imgUrl}
+              postUsername={post.username}
+              postUserImg={post.profileUrl}
+              postContent={post.content}
+              postCreatedAt={post.createdAt}
+              postNumOfLikes={post.numOfLikes}
+              liked={liked}
+              like={like}
+            />
+          </>
+        )}
+        {/*  tspark20220417-End */}
       </NGrid>
       {isOpen ? (
         <PostModal
@@ -113,5 +174,12 @@ const Post = (props) => {
     </NGrid>
   );
 };
+
+const CommentsShow = styled.div`
+  color: #999;
+  padding: 6px 16px;
+  cursor: pointer;
+`;
+
 
 export default Post;
