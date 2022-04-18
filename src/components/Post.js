@@ -108,8 +108,9 @@ const Post = (props) => {
           setDetail={setDetail}
         />
       ) : null}
-
-      <UpdateModal isOpen={detail} setIsOpen={setDetail} data={props} />
+      {detail ? (
+        <UpdateModal isOpen={detail} setIsOpen={setDetail} data={props} />
+      ) : null}
     </NGrid>
   );
 };
