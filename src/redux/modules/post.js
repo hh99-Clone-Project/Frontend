@@ -9,17 +9,20 @@ const DELETE = "DELETE";
 const GETPOST = "GETPOST";
 
 //initialState
-const initialState = [
-  {
-    postId: "1",
-    imageFile: "/images/basic.jpg",
-    contents: "내용",
-    dayBefore: "7일 전",
-    commentCnt: "2개",
-    nickname: "정영호",
-    likestatus: true,
-  },
-];
+const initialState = {
+  postList: [
+    {
+      postId: "1",
+      imageFile: "/images/basic.jpg",
+      contents: "내용",
+      dayBefore: "7일 전",
+      commentCnt: "2개",
+      nickname: "정영호",
+      likestatus: true,
+    },
+  ],
+  paging: { start: null, next: null, size: 5 },
+};
 
 //액션 생성 함수
 export const uploadPost = createAction(ADDPOST, (postInfo) => ({ postInfo }));
