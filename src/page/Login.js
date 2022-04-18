@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router";
 import { Grid, Image, Input, Button, Text } from "../elements/index";
 import { AiFillFacebook } from "react-icons/ai";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 
 import { actionCreators as userActions } from "../redux/modules/user";
-import { useNavigate } from "react-router";
 
 const LogIn = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const [RandomPic, setRadomPic] = useState();
 
@@ -55,7 +55,7 @@ const LogIn = () => {
       console.log("1");
       dispatch(userActions.loginApi(username,pwd,navigate));
       console.log("2");
-   }
+  }
 
   return (
     <React.Fragment>
@@ -145,6 +145,7 @@ const LogIn = () => {
                 margin="20px 0"
                 cursor="pointer"
                 _onClick={() => {
+                  navigate("/");
                   window.alert("준비 중 입니다.");
                 }}
               ></Grid>
@@ -159,6 +160,7 @@ const LogIn = () => {
                 cursor="pointer"
                 _onClick={() => {
                   window.alert("준비 중 입니다.");
+
                 }}
               >
                 비밀번호를 잊으셨나요?
