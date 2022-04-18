@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import axios from "axios";
-import { useNavigate } from "react-router";
 
 //액션 타입
 const SIGNUP = "SIGNUP";
@@ -15,6 +14,7 @@ const initialState = {};
 const signUp = createAction(SIGNUP, (userInfo) => ({ userInfo }));
 const logIn = createAction(LOGIN, (userInfo) => ({ userInfo }));
 const logOut = createAction(LOGOUT, () => ({}));
+
 
 //미들웨어
 export const signUpDB = (userInfo) => {
@@ -32,51 +32,52 @@ export const signUpDB = (userInfo) => {
   };
 };
 
-const loginApi = (user) => {
-  return async function (dispatch, getState, { history }) {
+const loginApi = (username , pwd, navigate) => {
+  console.log("username : ", username);
+  console.log("pwd : ", pwd);
+  
+  return async function (dispatch, getState) {
     try {
       const login = await axios.post("http://3.35.52.88/user/login", {
-        username: user.username,
-        password: user.pwd,
+        username: username,
+        password: pwd,
       });
-      if (!login.data) {
+      console.log("login : ", login);
+      if (login.data) {
         alert(`로그인 성공`);
-        history.replace("/");
+        ///history.replace("/");
+        navigate("/main", {replace: true});
 
         const token = login.headers.authorization.split("BEARER ");
         localStorage.setItem("token", token[1]);
 
-        dispatch(
-          logIn({
-            username: user.username,
-          })
-        );
+        dispatch(loginCheckApi(token));
       } else {
-        alert("닉네입과 패스워드를 다시 확인해주세요.");
+        alert("닉네임과 패스워드를 다시 확인해주세요.");
       }
     } catch (err) {
-      window.alert("닉네임과 패스워드를 다시 확인해주세요.");
+      window.alert("닉네임과 패스워드를 다시 확인해주세요11.");
       console.log("Error", err);
     }
   };
 };
 
-const loginCheckApi = () => {
-  return async function (dispatch, getState, { history }) {
+const loginCheckApi = (token) => {
+  return async function (dispatch, getState) {
     try {
-      const check = await axios.post(
-        "http://3.35.52.88/api/login",
-        {},
+      const check = await axios.get(
+        "http://3.35.52.88/api/user/islogin",
         {
           headers: {
             Authorization: `BEARER ${localStorage.getItem("token")}`,
           },
         }
       );
+      console.log("check : ", check);
       dispatch(
         logIn({
           username: check.data.username,
-          userId: check.data.userId,
+          nickname: check.data.nickname,
         })
       );
     } catch (err) {
@@ -99,8 +100,11 @@ export default handleActions(
   {
     [LOGIN]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_login = true;
-        draft.user = action.payload.user;
+        // draft.is_login = true;
+        // draft.user = action.payload.user;
+        console.log("action : ",action);
+        draft.username = action.payload.username;
+        draft.nickname = action.payload.nickname;
       }),
     [LOGOUT]: (state, action) =>
       produce(state, (draft) => {
