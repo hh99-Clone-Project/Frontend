@@ -6,7 +6,15 @@ import { postList } from "../shared/mockApi";
 import styled from "styled-components";
 import ReactLoading from "react-loading";
 
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 const Main = (props) => {
+  const dispatch = useDispatch();
+  
+  
+  const token = localStorage.getItem("token");
+  
   const _postList = postList.postList;
   const [pageNum, setPageNum] = useState(1);
   const [target, setTarget] = useState(""); // target
@@ -26,6 +34,11 @@ const Main = (props) => {
       setIsLoading(false);
     }
   };
+
+  /* 로그인 유지-tspark20220418 */
+  useEffect(() => {
+    dispatch(userActions.loginCheckApi(token));
+  },[token]);
 
   useEffect(() => {
     let observer;
