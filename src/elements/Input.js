@@ -20,7 +20,7 @@ const Input = (props) => {
   if (mainInput) {
     return (
       <React.Fragment>
-        <MainInput placeholder={placeholder}></MainInput>
+        <MainInput onChange={_onChange} placeholder={placeholder}></MainInput>
       </React.Fragment>
     );
   }
