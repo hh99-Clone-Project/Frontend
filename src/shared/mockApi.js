@@ -32,5 +32,35 @@ export const postList = {
       nickname: "테스트3",
       likestatus: true,
     },
+    {
+      postId: "4",
+      imageFile:
+        "https://mblogthumb-phinf.pstatic.net/MjAxOTA4MjZfMjUg/MDAxNTY2ODE4ODc1MDQ1.KsQIgXCz4oKe0yk4aIFsJcIrvuc026oe13iamQUNHpgg.KxOUGIfsaxuJGGHpHSp4ckeneUHvGTZheHG6WdmF5w4g.JPEG.smotherguy/31.jpg?type=w800",
+      contents: "테스트 게시물 4",
+      dayBefore: "7일 전",
+      commentCnt: "2개",
+      nickname: "테스트4",
+      likestatus: true,
+    },
+    {
+      postId: "5",
+      imageFile:
+        "https://bbs.bepick.in/bbs/2021/07/bcfac7b78517615749d3aa820f92c1b8_1315146742.jpg",
+      contents: "테스트 게시물5",
+      dayBefore: "7일 전",
+      commentCnt: "1개",
+      nickname: "테스트5",
+      likestatus: true,
+    },
+    {
+      postId: "6",
+      imageFile:
+        "http://www.sisamagazine.co.kr/news/photo/202202/427570_430529_2417.jpeg",
+      contents: "테스트 게시물6",
+      dayBefore: "7일 전",
+      commentCnt: "9개",
+      nickname: "테스트6",
+      likestatus: true,
+    },
   ],
 };
