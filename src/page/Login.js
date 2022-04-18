@@ -51,6 +51,10 @@ const LogIn = () => {
   return (
     <React.Fragment>
       {/* phone이미지와 login 영역*/}
+      <div
+        bg={"#FAFAFA"}
+      >
+
       <Grid
         is_flex
         className="layout"
@@ -58,6 +62,7 @@ const LogIn = () => {
         height="900px"
         // border="5px solid red"
         margin="auto"
+        //bg = {"#FAFAFA"}
       >
         <Grid className="phoneLayout">
           {/* Random으로 들어가는 phoneLayout */}
@@ -79,7 +84,7 @@ const LogIn = () => {
           />
         </Grid>
 
-        <Grid width="380px" margin="auto">
+        <Grid width="380px" margin="auto" bg={"#fff"}>
           {/*Login 영역*/}
           <Grid
             margin="70px 0 10px 0"
@@ -159,6 +164,7 @@ const LogIn = () => {
             // padding="10px 0"
             border="1px solid #dbdbdb"
             margin= "0"
+            bg={"#fff"}
 
           >
             <Text size="15px" margin="0 -77px 0 80px">
@@ -206,6 +212,7 @@ const LogIn = () => {
       </Grid>
       {""}
       {/* <Footer /> */}
+      </div>
     </React.Fragment>
   );
 };
