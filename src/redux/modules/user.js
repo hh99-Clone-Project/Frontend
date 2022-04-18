@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import axios from "axios";
-import { signUpRes } from "../../shared/mockApi";
+import { useNavigate } from "react-router";
 
 //액션 타입
 const SIGNUP = "SIGNUP";
@@ -14,7 +14,7 @@ const initialState = {};
 //액션생성함수
 const signUp = createAction(SIGNUP, (userInfo) => ({ userInfo }));
 const logIn = createAction(LOGIN, (userInfo) => ({ userInfo }));
-const logOut = createAction(LOGOUT, (userInfo) => ({ userInfo }));
+const logOut = createAction(LOGOUT, () => ({}));
 
 //미들웨어
 export const signUpDB = (userInfo) => {
@@ -31,6 +31,7 @@ export const signUpDB = (userInfo) => {
     dispatch(signUp(userInfo.username));
   };
 };
+
 const loginApi = (user) => {
   return async function (dispatch, getState, {history}){
       try {
@@ -82,6 +83,7 @@ const loginCheckApi = () => {
   };
 };
 
+
 const logOutApi = () => {
   return function (dispatch, getState, {history}){
       localStorage.removeItem("token");
@@ -89,6 +91,7 @@ const logOutApi = () => {
       dispatch(logOut());
   };
 };
+
 //리듀서
 export default handleActions(
   {
@@ -101,6 +104,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.is_login = false;
         draft.user = null;
+      sessionStorage.removeItem("isLogin");
       }),
     [SIGNUP]: (state, action) =>
       produce(state, (draft) => {
@@ -110,9 +114,11 @@ export default handleActions(
   initialState
 );
 
+
 export const actionCreators = { 
   signUpDB, 
   loginApi, 
   loginCheckApi,
-  logOutApi
+  logOutApi,
+  logOut
 };

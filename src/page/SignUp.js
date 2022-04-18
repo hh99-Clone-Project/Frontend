@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NGrid from "../elements/NGrid";
 import Input from "../elements/NInput";
 import Image from "../elements/NImage";
@@ -7,20 +7,22 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
 const SignUp = () => {
-  const [id, setId] = useState();
-  const [nickname, setNickname] = useState();
-  const [pw, setPw] = useState();
-
   const dispatch = useDispatch();
-  const changeId = (e) => {
-    setId(e.target.value);
+
+  const [inputs, setInputs] = useState({
+    id: "",
+    nickname: "",
+    pw: "",
+  });
+
+  const { id, nickname, pw } = inputs;
+  const onChange = (e) => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    });
   };
-  const changeNickname = (e) => {
-    setNickname(e.target.value);
-  };
-  const changePw = (e) => {
-    setPw(e.target.value);
-  };
+
   const signUp = () => {
     const userData = {
       username: id,
@@ -73,18 +75,21 @@ const SignUp = () => {
         </NGrid>
         <NGrid padding={"5px 0 0 0"} width={"262px"} height={"197px"}>
           <Input
+            name="id"
             margin={"5px auto"}
-            onChange={changeId}
+            onChange={onChange}
             placehorder={"아이디"}
           />
           <Input
+            name="nickname"
             margin={"0px auto"}
-            onChange={changeNickname}
+            onChange={onChange}
             placehorder={"닉네임"}
           />
           <Input
+            name="pw"
             margin={"5px auto"}
-            onChange={changePw}
+            onChange={onChange}
             placehorder={"비밀번호"}
             type={"password"}
           />

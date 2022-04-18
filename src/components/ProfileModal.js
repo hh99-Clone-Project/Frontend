@@ -1,6 +1,9 @@
 import Modal from "react-modal";
 import styled from "styled-components";
 import PostBtn from "../elements/PostBtn";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "./../redux/modules/user";
+import { useNavigate } from "react-router";
 
 const styles = {
   overlay: {
@@ -35,6 +38,14 @@ const styles = {
 
 const ProfileModal = (props) => {
   const { isOpen, modalClose } = props;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    dispatch(userActions.logOut());
+    navigate("/", { replace: true });
+  };
+
   return (
     <Modal isOpen={isOpen} style={styles} onRequestClose={modalClose}>
       <DescBox>
@@ -52,7 +63,7 @@ const ProfileModal = (props) => {
         <PostBtn type={"Change"} />
         <p>계정전환</p>
       </DescBox>
-      <DescBox style={{ borderTop: "1px solid #DBDBDB" }}>
+      <DescBox onClick={logOut} style={{ borderTop: "1px solid #DBDBDB" }}>
         <p style={{ margin: "0" }}>로그아웃</p>
       </DescBox>
     </Modal>
