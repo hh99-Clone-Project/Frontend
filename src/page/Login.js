@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router";
 import { Grid, Image, Input, Button, Text } from "../elements/index";
 import { AiFillFacebook } from "react-icons/ai";
 import styled from "styled-components";
@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 
 const LogIn = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [RandomPic, setRadomPic] = useState();
@@ -170,7 +171,7 @@ const LogIn = () => {
               <Text
                 link
                 _onClick={() => {
-                  navigator("/signup");
+                  navigate("/");
                 }}
               >
                 가입하기
