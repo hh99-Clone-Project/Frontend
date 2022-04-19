@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import Input from "../elements/NInput";
@@ -7,31 +7,50 @@ import PostModal from "./PostModal";
 import UpdateModal from "./UpdateModal";
 
 // test modal 추가 - tspark20220417
+import Grid from "../elements/Grid";
 import styled from "styled-components";
-import CommentDetail from "./CommentDetail"
-import { AiOutlineClose } from "react-icons/ai";
+import CommentDetailViewModal from "./CommentDetailViewModal"
+import CommentDetailMoreModal from "./CommentDetailMoreModal"
+
 
 const Post = (props) => {
 
   console.log(props);
 
   /* tspark20220417 - start */
-  const post = props;
-  const postId = post.postId;
-  // const imgUrl = post.imgUrl.split(",");
-  const imgUrl = "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png";
-  const liked = props.liked;
-  const [like, setLike] = useState(props.liked);
-  const [delLiked, setDelLiked] = useState(0);
-  const [addLiked, setAddLiked] = useState(0);
 
-  const [commentShow, setCommentShow] = useState(false);
-  const [commentModal, setCommentModal] = useState(false);
+  const [commentDetailView, setCommentDetailView] = useState(false);
+  // const [commentDetailMoreModal, setCommentDetailMoreModal] = useState(false);
+  
+  const test = () => {
+
+    return(
+      
+        <CommentDetailViewModal
+          data={props}
+          commentDetailView={commentDetailView}
+          setCommentDetailView={setCommentDetailView}
+          //setCommentDetailMoreModal={setCommentDetailMoreModal}
+        />
+    ); 
+  }
+
+  useEffect(() => {
+    test();
+  }, [commentDetailView])
+
+  const CommentViewOpen = () => {
+    console.log("1");
+    setCommentDetailView(true);
+  };
+
   /* tspark20220417 - end */
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [detail, setDetail] = useState(false);
 
+  // Post
   const detailOpen = () => {
     setIsOpen(true);
   };
@@ -123,7 +142,7 @@ const Post = (props) => {
         </NGrid>
 
         {/*  tspark20220417-Start */}
-        <CommentsShow
+        {/* <CommentsShow
           onClick={() => {
             setCommentShow(true);
             setCommentModal(true);
@@ -161,7 +180,11 @@ const Post = (props) => {
               <AiOutlineClose size="30" color="#fff" />
             </ClosePosting>
           </>
-        )}
+        )} */}
+
+        <Grid _onClick={CommentViewOpen}>댓글 보기Test</Grid>
+        
+       
         {/*  tspark20220417-End */}
       </NGrid>
       {isOpen ? (

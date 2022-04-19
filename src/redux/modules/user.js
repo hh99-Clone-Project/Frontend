@@ -36,6 +36,7 @@ const loginApi = (username , pwd, navigate) => {
   console.log("username : ", username);
   console.log("pwd : ", pwd);
   
+  // http://3.35.52.88/user/login
   return async function (dispatch, getState) {
     try {
       const login = await axios.post("http://3.35.52.88/user/login", {
@@ -45,11 +46,9 @@ const loginApi = (username , pwd, navigate) => {
       console.log("login : ", login);
       if (login.data) {
         alert(`로그인 성공`);
-        ///history.replace("/");
-        navigate("/main", {replace: true});
-
         const token = login.headers.authorization.split("BEARER ");
         localStorage.setItem("token", token[1]);
+        navigate("/main", {replace: true});
 
         dispatch(loginCheckApi(token));
       } else {
@@ -103,8 +102,7 @@ export default handleActions(
         // draft.is_login = true;
         // draft.user = action.payload.user;
         console.log("action : ",action);
-        draft.username = action.payload.username;
-        draft.nickname = action.payload.nickname;
+        draft.userInfo = action.payload.userInfo;
       }),
     [LOGOUT]: (state, action) =>
       produce(state, (draft) => {

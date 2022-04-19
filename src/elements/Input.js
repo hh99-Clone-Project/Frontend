@@ -14,19 +14,23 @@ const Input = (props) => {
     padding,
     _value,
     mainInput,
-    password,
+    // password,
   } = props;
 
   if (mainInput) {
     return (
       <React.Fragment>
-        <MainInput onChange={_onChange} placeholder={placeholder}></MainInput>
+        <MainInput type={type} onChange={_onChange} placeholder={placeholder}></MainInput>
       </React.Fragment>
     );
   }
 
   return <MainInput placeholder={placeholder}></MainInput>;
 };
+
+Input.defaultProps = {
+  type: 'text',
+}
 
 const MainInput = styled.input`
   margin: ${(props) => props.margin};

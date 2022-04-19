@@ -121,7 +121,7 @@ const LogIn = () => {
               {/* Password 입력 */}
               <Input
                 mainInput
-                password
+                type ="password"
                 placeholder="password"
                 _onChange={pwdCheck}
               ></Input>

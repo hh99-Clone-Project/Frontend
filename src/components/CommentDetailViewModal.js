@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Modal from "./Posting";
+// import Modal from "./Posting";
+import Modal from "react-modal";
+
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-
+import CommentDetaillModal from "./CommentDetailMoreModal";
+import Post from "./Post";
+import CommentDetailMoreModal from "./CommentDetailMoreModal";
 
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
@@ -13,32 +16,41 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiBookmarkLine } from "react-icons/ri";
 import { CgSmile } from "react-icons/cg";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.min.css";
-import "swiper/components/navigation/navigation.min.css";
-import SwiperCore, { Navigation, Pagination } from "swiper";
 
-const CommentDetail = (props) => {
+const CommentDetailViewModal = (props) => {
   const dispatch = useDispatch();
+  //const { isOpen, setCommentDetailView, setCommentDetailMoreModal } = props;
   
   // useEffect(() => {
   //   dispatch(loadCommentDB(postId));
   //   dispatch(loadPostDB());
   // }, []);
 
-  const visible = useState(props.visible);
+  //const visible = useState(props.visible);
+  
   const [like, setLike] = useState(props.like);
   const liked = props.like;
   const [hasComment, setHasComment] = useState("");
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
-  const [commentInfoModal, setCommentInfoModal] = useState(false);
+
+ const [commentDetailMoreModal, setCommentDetailMoreModal] = useState(false);
 
   const postId = props.postId;
   const imgUrl = props.imgUrl;
   const postUsername = props.postUsername;
   const postProfileUrl = props.postProfileUrl;
   const postContent = props.postContent;
+
+  /* Modal */
+
+
+  const commentDetailOpen = () => {
+    // 댓글조회 modal 관리 
+    //setCommentDetailView(false);
+    // 댓글조회에서 더보기 버튼 modal 관리
+    setCommentDetailMoreModal(true);
+  };
 
   //const liked1 = useSelector((store) => store.post.list);
 
@@ -76,35 +88,17 @@ const CommentDetail = (props) => {
      //dispatch(deleteCommentDB(postId, commentId1));
    };
  
-   SwiperCore.use([Navigation, Pagination]);
- 
-   const swiperParams = {
-     navigation: true,
-     pagination: true,
-   };
- 
 
   return (
     <>
-      <Modal visible={visible} maxWidth="900px" outline="none">
+      <Modal 
+        maxWidth="900px" 
+        outline="none"
+        onRequestClose={() => {
+          commentDetailOpen(true);
+        }}
+      >
         <ModalArea>
-          {/* <Swiper {...swiperParams}>
-            <LeftArea>
-              {imgUrl.map((img, key) => {
-                return (
-                  <SwiperSlide
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Img src={img} alt="detailImg" />
-                  </SwiperSlide>
-                );
-              })}
-            </LeftArea>
-          </Swiper> */}
           <LeftArea
             style={{
               display: "flex",
@@ -116,7 +110,7 @@ const CommentDetail = (props) => {
           </LeftArea>
           <RightArea>
             <WriterInfo>
-              <Link to="/">
+              <Link to="/" style={{ marginLeft: "initial" }}>
                 <PostTitleImgArea>
                   {/* <PostTitleImg src={postProfileUrl} alt="프로필 이미지" /> */}
                   <PostTitleImg
@@ -125,14 +119,28 @@ const CommentDetail = (props) => {
                   />
                 </PostTitleImgArea>
               </Link>
-              <Link to="/">
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  margin: "10px 2px 11px -36px",
+                }}
+              >
                 {/* <PostTitle>{postUsername}</PostTitle> */}
                 <PostTitle>JiEun</PostTitle>
               </Link>
               •<Follow>팔로우</Follow>
-              <MenuArea>
-                <BsThreeDots size="20" />
-              </MenuArea>
+              <div>
+                <MenuArea>
+                  <BsThreeDots
+                    size="20"
+                    onClick={commentDetailOpen}
+                    style={{ width: "30px", cursor: "pointer" }}
+                  />
+                </MenuArea>
+              </div>
+           
             </WriterInfo>
 
             <ContentArea>
@@ -145,8 +153,17 @@ const CommentDetail = (props) => {
                       paddingTop: "20px",
                     }}
                   >
-                    <Link to="/">
-                      <PostTitle style={{ marginBottom: "10px" }}>
+                    <Link
+                      to="/"
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <PostTitle
+                        style={{
+                          marginBottom: "10px",
+                          textDecoration: "none",
+                          color: "black",
+                        }}
+                      >
                         {/* {postUsername} */}
                         jiEun
                       </PostTitle>
@@ -191,15 +208,35 @@ const CommentDetail = (props) => {
                 )}
 
                 <Link to="/">
-                  <IoChatbubbleOutline size="28" style={{ margin: "8px" }} />
+                  <IoChatbubbleOutline
+                    size="28"
+                    style={{
+                      margin: "8px",
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                  />
                 </Link>
                 <Link to="/direct">
-                  <IoMdPaperPlane size="28" style={{ margin: "8px" }} />
+                  <IoMdPaperPlane
+                    size="28"
+                    style={{
+                      margin: "8px",
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                  />
                 </Link>
                 <Link to="/">
                   <RiBookmarkLine
                     size="28"
-                    style={{ position: "absolute", top: "10px", right: "8px" }}
+                    style={{
+                      position: "absolute",
+                      top: "10px",
+                      right: "8px",
+                      textDecoration: "none",
+                      color: "black",
+                    }}
                   />
                 </Link>
 
@@ -231,12 +268,16 @@ const CommentDetail = (props) => {
             </RightFooter>
           </RightArea>
         </ModalArea>
+        {commentDetailMoreModal ? (
+          <CommentDetailMoreModal 
+            commentDetailView={commentDetailMoreModal} 
+            setCommentDetailView={setCommentDetailMoreModal} data={props}/>
+        ): null}
       </Modal>
     </>
   );
 }
 
-export default CommentDetail;
 
 
 Comment.defaultProps = {
@@ -272,7 +313,7 @@ Comment.defaultProps = {
   const WriterInfo = styled.div`
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #eee;
     position: relative;
   `;
   
@@ -316,9 +357,10 @@ Comment.defaultProps = {
   `;
   
   const MenuArea = styled.div`
-    position: absolute;
-    right: 10px;
+    position: relative;
+    right: -2px;
     cursor: pointer;
+    margin: 19px 0px 10px 10px;
   `;
   
   const ContentArea = styled.div`
@@ -401,7 +443,7 @@ Comment.defaultProps = {
   
   const Message = styled.textarea`
     width: 100%;
-    height: 100%;
+    height: 40%;
     max-height: 80px;
     outline: none;
     border: 0;
@@ -411,10 +453,11 @@ Comment.defaultProps = {
     flex-direction: column;
     white-space: pre-wrap;
     word-wrap: break-word;
+    margin: 0 0 -7px 0;
   `;
   
   const Commenting = styled.div`
-    width: 40px;
+    width: 47px;
     color: rgba(var(--d69, 0, 149, 246), 1);
     cursor: pointer;
   `;
@@ -435,3 +478,5 @@ Comment.defaultProps = {
     cursor: pointer;
     font-size: 14px;
   `;
+
+  export default CommentDetailViewModal;
