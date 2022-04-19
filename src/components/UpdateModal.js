@@ -33,12 +33,13 @@ const styles = {
 };
 
 const UpdateModal = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
   const [_contents, set_Contents] = useState();
   const { isOpen, setIsOpen } = props;
   const {
     commentCnt,
-    contents,
+    content,
     dayBefore,
     imageFile,
     likestatus,
@@ -50,9 +51,10 @@ const UpdateModal = (props) => {
     dispatch(
       updateDB({
         postId: postId,
-        contents: _contents ? _contents : contents,
+        contents: _contents,
       })
     );
+    setIsOpen(false);
   };
 
   const updateContents = (e) => {
@@ -83,10 +85,9 @@ const UpdateModal = (props) => {
             }}
           >
             <NGrid is_flex margin="0 0 0 533px" width="665px">
-              <p onClick={updatePost} style={{ margin: "0" }}>
-                게시물 수정{" "}
-              </p>
+              <p style={{ margin: "0" }}>게시물 수정</p>
               <span
+                onClick={updatePost}
                 style={{
                   color: "#0095F6",
                   margin: "0 10px 0 0",
@@ -138,7 +139,7 @@ const UpdateModal = (props) => {
                 width="338px"
                 height="220px"
                 onChange={updateContents}
-                defaultValue={contents}
+                defaultValue={content}
               ></Textarea>
             </div>
           </NGrid>

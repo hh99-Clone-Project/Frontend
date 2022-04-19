@@ -4,9 +4,9 @@ import NImage from "../elements/NImage";
 import Textarea from "./../elements/Textarea";
 import PostBtn from "../elements/PostBtn";
 import NInput from "../elements/NInput";
-import { uploadPost } from "../redux/modules/post";
+import { addPostDB } from "../redux/modules/post";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const styles = {
   overlay: {
@@ -35,10 +35,13 @@ const styles = {
 };
 
 const AddPostModal = (props) => {
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const { addPost, setAddPost } = props;
   const [content, setContent] = useState(null);
   const [preImg, setPreImg] = useState();
+  const [uploadImg, setUploadImg] = useState();
 
   const addContent = (e) => {
     setContent(e.target.value);
@@ -46,14 +49,17 @@ const AddPostModal = (props) => {
 
   const upload = () => {
     const data = {
-      images: preImg,
+      image: uploadImg,
       contents: content,
     };
-    dispatch(uploadPost(data));
+    dispatch(addPostDB(data, token));
+      setAddPost(false);
+      setPreImg(null);
   };
 
   const setPreview = (e) => {
     const file = e.target.files[0];
+    setUploadImg(file);
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
@@ -155,7 +161,7 @@ const AddPostModal = (props) => {
             >
               <NGrid is_flex width="338px" height="55px" margin="0 0 0 0">
                 <NImage
-                  src={require("../static/IU.jpg")}
+                  src={userInfo.profileImg}
                   width="30px"
                   height="30px"
                   margin="0 0 0 15px"
@@ -167,7 +173,7 @@ const AddPostModal = (props) => {
                     margin: "0",
                   }}
                 >
-                  국힙원탑아이유
+                  {userInfo.nickname}
                 </p>
               </NGrid>
               <Textarea

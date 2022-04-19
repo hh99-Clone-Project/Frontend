@@ -1,19 +1,36 @@
 import { useState } from "react";
 import NGrid from "../elements/NGrid";
-import Input from "../elements/NInput";
+import NInput from "../elements/NInput";
 import Image from "../elements/NImage";
 import Button from "../elements/NButton";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
+import NImage from "../elements/NImage";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-
+  const [files, setFiles] = useState({
+    preImg: "",
+    upImg: "",
+  });
   const [inputs, setInputs] = useState({
     id: "",
     nickname: "",
     pw: "",
   });
+
+  const upFile = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      setFiles({ upImg: file, preImg: reader.result });
+    };
+  };
+
+  console.log(files);
 
   const { id, nickname, pw } = inputs;
   const onChange = (e) => {
@@ -25,6 +42,7 @@ const SignUp = () => {
 
   const signUp = () => {
     const userData = {
+      image: files.upImg,
       username: id,
       nickname: nickname,
       password: pw,
@@ -37,7 +55,7 @@ const SignUp = () => {
       <NGrid
         margin={"250px auto 0 auto"}
         border={"1px solid #DBDBDB"}
-        height={"500px"}
+        height={"530px"}
         width={"350px"}
         bg={"#ffffff"}
       >
@@ -74,39 +92,66 @@ const SignUp = () => {
           ></div>
         </NGrid>
         <NGrid padding={"5px 0 0 0"} width={"262px"} height={"197px"}>
-          <Input
+          <NInput
             name="id"
             margin={"5px auto"}
             onChange={onChange}
             placehorder={"아이디"}
           />
-          <Input
+          <NInput
             name="nickname"
             margin={"0px auto"}
             onChange={onChange}
             placehorder={"닉네임"}
           />
-          <Input
+          <NInput
             name="pw"
             margin={"5px auto"}
             onChange={onChange}
             placehorder={"비밀번호"}
             type={"password"}
           />
-          <Input
+          <NInput
             margin={"0px auto"}
             placehorder={"비밀번호 확인"}
             type={"password"}
           />
+          <NGrid is_flex width="260px" height="38px" margin="10px 0 0 0">
+            <NImage
+              src={files.preImg ? files.preImg : require("../static/logo.png")}
+              type="circle"
+              width="35px"
+              height="35px"
+              margin="0 7px"
+            />
+            <label
+              style={{
+                color: "#0095F6",
+                height: "38px",
+                lineHeight: "38px",
+                cursor: "pointer",
+              }}
+            >
+              <NInput
+                Display
+                border="none"
+                bgColor="none"
+                margin={"5px auto"}
+                type={"file"}
+                onChange={upFile}
+              />
+              클릭하여 프로필 사진을 선택
+            </label>
+          </NGrid>
         </NGrid>
-        <Button onClick={signUp} margin={"-10px auto"}>
+        <Button onClick={signUp} margin={"30px auto"}>
           가입
         </Button>
       </NGrid>
       <NGrid>
         <NGrid
           bg={"#ffffff"}
-          margin={"10px auto"}
+          margin={"7px auto"}
           border={"1px solid lightgray"}
           height={"70px"}
           width={"350px"}

@@ -8,18 +8,16 @@ import UpdateModal from "./UpdateModal";
 
 // test modal 추가 - tspark20220417
 import styled from "styled-components";
-import CommentDetail from "./CommentDetail"
+import CommentDetail from "./CommentDetail";
 import { AiOutlineClose } from "react-icons/ai";
 
 const Post = (props) => {
-
-  console.log(props);
-
   /* tspark20220417 - start */
   const post = props;
   const postId = post.postId;
   // const imgUrl = post.imgUrl.split(",");
-  const imgUrl = "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png";
+  const imgUrl =
+    "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png";
   const liked = props.liked;
   const [like, setLike] = useState(props.liked);
   const [delLiked, setDelLiked] = useState(0);
@@ -96,7 +94,7 @@ const Post = (props) => {
             margin: "0 0 0 14px",
           }}
         >
-          7일 전
+          {props.dayBefore}
         </p>
       </NGrid>
 
@@ -134,7 +132,6 @@ const Post = (props) => {
         {commentModal && (
           <>
             <CommentDetail
-         
               visible={commentModal}
               postId={postId}
               imgUrl={imgUrl}
@@ -147,7 +144,6 @@ const Post = (props) => {
               like={like}
             />
             <ClosePosting
-
               // onRequestClose={() => {
               //   setCommentModal(false);
               //   setCommentShow(false);
@@ -179,7 +175,7 @@ const Post = (props) => {
   );
 };
 
- /* tspark20220417 - start */
+/* tspark20220417 - start */
 const CommentsShow = styled.div`
   color: #999;
   padding: 6px 16px;
@@ -193,6 +189,6 @@ const ClosePosting = styled.div`
   cursor: pointer;
   z-index: 1000;
 `;
- /* tspark20220417 - end */
+/* tspark20220417 - end */
 
 export default Post;

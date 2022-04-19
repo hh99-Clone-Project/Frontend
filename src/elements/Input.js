@@ -14,13 +14,16 @@ const Input = (props) => {
     padding,
     _value,
     mainInput,
-    password,
   } = props;
 
   if (mainInput) {
     return (
       <React.Fragment>
-        <MainInput onChange={_onChange} placeholder={placeholder}></MainInput>
+        <MainInput
+          type={type}
+          onChange={_onChange}
+          placeholder={placeholder}
+        ></MainInput>
       </React.Fragment>
     );
   }

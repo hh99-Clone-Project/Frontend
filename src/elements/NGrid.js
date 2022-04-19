@@ -59,7 +59,7 @@ const GridBox = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   ${(props) => (props.line_height ? `line-height: ${props.line_height};` : "")}
-  ${(props) => (props.color ? `color: ${props.color};` : "black")}
+  ${(props) => (props.color ? `color: ${props.color};` : "color: black;")}
   box-sizing: border-box;
   word-break:break-all;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
