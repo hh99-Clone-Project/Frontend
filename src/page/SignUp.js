@@ -5,6 +5,7 @@ import Image from "../elements/NImage";
 import Button from "../elements/NButton";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
+import _ from "lodash";
 import NImage from "../elements/NImage";
 
 const SignUp = () => {
@@ -30,15 +31,20 @@ const SignUp = () => {
     };
   };
 
-  console.log(files);
-
   const { id, nickname, pw } = inputs;
   const onChange = (e) => {
+    console.log("이건 바로바로");
     setInputs({
       ...inputs,
       [e.target.name]: e.target.value,
     });
+    checkDup(id);
   };
+
+  const checkDup = _.throttle((id) => {
+    console.log("스로틀");
+    // dispatch(userActions.checkDupDB(id));
+  }, 10000);
 
   const signUp = () => {
     const userData = {
@@ -95,7 +101,7 @@ const SignUp = () => {
           <NInput
             name="id"
             margin={"5px auto"}
-            onChange={onChange}
+            onChange={checkDup}
             placehorder={"아이디"}
           />
           <NInput

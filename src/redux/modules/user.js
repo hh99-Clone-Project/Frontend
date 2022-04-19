@@ -6,6 +6,7 @@ import axios from "axios";
 const SIGNUP = "SIGNUP";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
+const CHECK = "CHECK";
 
 //initialState
 const initialState = {};
@@ -14,6 +15,7 @@ const initialState = {};
 const signUp = createAction(SIGNUP, (userInfo) => ({ userInfo }));
 const logIn = createAction(LOGIN, (userInfo) => ({ userInfo }));
 const logOut = createAction(LOGOUT, () => ({}));
+const checkDup = createAction(CHECK, (checkDup) => ({ checkDup }));
 
 //미들웨어
 export const signUpDB = (userInfo) => {
@@ -92,6 +94,19 @@ const logOutApi = () => {
   };
 };
 
+const checkDupDB = (id) => {
+  return function (dispatch, getState) {
+    axios
+      .post(`http://3.35.52.88/user/idcheck`, { username: id })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 //리듀서
 export default handleActions(
   {
@@ -121,4 +136,5 @@ export const actionCreators = {
   loginCheckApi,
   logOutApi,
   logOut,
+  checkDupDB,
 };

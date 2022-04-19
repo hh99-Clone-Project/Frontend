@@ -11,25 +11,15 @@ const MOREPOST = "MOREPOST";
 
 //initialState
 const initialState = {
-  postList: [
-    {
-      postId: "1",
-      imageFile: "/images/basic.jpg",
-      contents: "내용",
-      dayBefore: "7일 전",
-      commentCnt: "2개",
-      nickname: "정영호",
-      likestatus: true,
-    },
-  ],
+  postList: [],
 };
 
 //액션 생성 함수
 const addPost = createAction(ADDPOST, (postInfo) => ({ postInfo }));
 const getPost = createAction(GETPOST, (postList) => ({ postList }));
-const morePost = createAction(MOREPOST, (postList) => ({ postList }));
 const updatePost = createAction(UPDATE, (postInfo) => ({ postInfo }));
 const deletePost = createAction(DELETE, (postInfo) => ({ postInfo }));
+const morePost = createAction(MOREPOST, (postList) => ({ postList }));
 
 //미들웨어
 export const addPostDB = (data, token) => {
@@ -54,7 +44,28 @@ export const addPostDB = (data, token) => {
   };
 };
 
-export const getPostDB = (token, page) => {
+export const getPostDB = (token, page, setIsLoading) => {
+  return function (dispatch, getState) {
+    console.log(page);
+    axios
+      .get(`http://3.35.52.88/api/posts?page=${page}`, {
+        headers: {
+          Authorization: `BEARER ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.length === 0) {
+          return alert("마지막 게시글 입니다");
+        }
+        dispatch(getPost(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const getMorePostDB = (token, page, setIsLoading) => {
   return function (dispatch, getState) {
     axios
       .get(`http://3.35.52.88/api/posts?page=${page}`, {
@@ -63,7 +74,7 @@ export const getPostDB = (token, page) => {
         },
       })
       .then((res) => {
-        dispatch(getPost(res.data));
+        dispatch(morePost(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -115,10 +126,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.postList.unshift(action.payload.postInfo);
       }),
-    [MOREPOST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.postList.push(...action.payload.postList);
-      }),
     [UPDATE]: (state, action) =>
       produce(state, (draft) => {
         let idx = draft.postList.findIndex(
@@ -138,7 +145,12 @@ export default handleActions(
       }),
     [GETPOST]: (state, action) =>
       produce(state, (draft) => {
-        draft.postList = action.payload.postList;
+        console.log(action.payload.postList);
+        draft.postList.push(...action.payload.postList);
+      }),
+    [MOREPOST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.postList.push(...action.payload.postList);
       }),
   },
   initialState

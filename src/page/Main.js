@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "../components/Header";
 import NGrid from "../elements/NGrid";
 import Post from "./../components/Post";
@@ -8,16 +8,15 @@ import ReactLoading from "react-loading";
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { getPostDB } from "./../redux/modules/post";
+import { getPostDB, getMorePostDB } from "./../redux/modules/post";
 
 const Main = (props) => {
   const postList = useSelector((state) => state.post.postList);
   const dispatch = useDispatch();
-
   const token = localStorage.getItem("token");
 
   const [pageNum, setPageNum] = useState(1);
-  const [target, setTarget] = useState(""); // target
+  const [target, setTarget] = useState(null); // target
   const [isLoading, setIsLoading] = useState(false); // isLoading
 
   /* 로그인 유지-tspark20220418 */
@@ -25,10 +24,33 @@ const Main = (props) => {
     dispatch(userActions.loginCheckApi(token));
   }, [token]);
 
+  const callback = async ([entry], observer) => {
+    console.log(entry);
+    if (entry.isIntersecting && !isLoading) {
+      console.log("아니 이게 찍힌다고?");
+      observer.unobserve(entry.target);
+      setIsLoading(true);
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+      setPageNum((pre) => pre + 1);
+      setIsLoading(false);
+      observer.observe(entry.target);
+    }
+  };
+
   useEffect(() => {
-    console.log("너 리렌더링이니?");
-    dispatch(getPostDB(token, pageNum));
-  }, []);
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(callback, { threshold: 1 });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target]);
+
+  useEffect(() => {
+    dispatch(getPostDB(token, pageNum, setIsLoading));
+  }, [pageNum]);
 
   return (
     <>
