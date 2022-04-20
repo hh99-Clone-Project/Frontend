@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import Input from "../elements/NInput";
@@ -7,29 +7,32 @@ import PostModal from "./PostModal";
 import UpdateModal from "./UpdateModal";
 
 // test modal 추가 - tspark20220417
+import Grid from "../elements/Grid";
 import styled from "styled-components";
-import CommentDetail from "./CommentDetail";
-import { AiOutlineClose } from "react-icons/ai";
+import CommentDetailViewModal from "./CommentDetailViewModal";
+
+
+
 
 const Post = (props) => {
   /* tspark20220417 - start */
-  const post = props;
-  const postId = post.postId;
-  // const imgUrl = post.imgUrl.split(",");
-  const imgUrl =
-    "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png";
-  const liked = props.liked;
-  const [like, setLike] = useState(props.liked);
-  const [delLiked, setDelLiked] = useState(0);
-  const [addLiked, setAddLiked] = useState(0);
 
-  const [commentShow, setCommentShow] = useState(false);
-  const [commentModal, setCommentModal] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   /* tspark20220417 - end */
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [detail, setDetail] = useState(false);
 
+  // Post
   const detailOpen = () => {
     setIsOpen(true);
   };
@@ -120,44 +123,15 @@ const Post = (props) => {
           </p>
         </NGrid>
 
-        {/*  tspark20220417-Start */}
-        <CommentsShow
-          onClick={() => {
-            setCommentShow(true);
-            setCommentModal(true);
-          }}
-        >
-          댓글 보기Test
-        </CommentsShow>
-        {commentModal && (
-          <>
-            <CommentDetail
-              visible={commentModal}
-              postId={postId}
-              imgUrl={imgUrl}
-              postUsername={post.username}
-              postUserImg={post.profileUrl}
-              postContent={post.content}
-              postCreatedAt={post.createdAt}
-              postNumOfLikes={post.numOfLikes}
-              liked={liked}
-              like={like}
-            />
-            <ClosePosting
-              // onRequestClose={() => {
-              //   setCommentModal(false);
-              //   setCommentShow(false);
-              // }}
+        <button onClick={openModal}> 모달팝업</button>
 
-              onClick={() => {
-                setCommentModal(false);
-                setCommentShow(false);
-              }}
-            >
-              <AiOutlineClose size="30" color="#fff" />
-            </ClosePosting>
-          </>
-        )}
+        <CommentDetailViewModal
+          open={modalOpen}
+          close={closeModal}
+          header="Modal heading"
+        >
+          팝업창입니다
+        </CommentDetailViewModal>
         {/*  tspark20220417-End */}
       </NGrid>
       {isOpen ? (

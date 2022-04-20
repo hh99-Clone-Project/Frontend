@@ -14,6 +14,7 @@ const Input = (props) => {
     padding,
     _value,
     mainInput,
+    // password,
   } = props;
 
   if (mainInput) {
@@ -30,6 +31,10 @@ const Input = (props) => {
 
   return <MainInput placeholder={placeholder}></MainInput>;
 };
+
+Input.defaultProps = {
+  type: 'text',
+}
 
 const MainInput = styled.input`
   margin: ${(props) => props.margin};

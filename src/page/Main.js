@@ -7,8 +7,7 @@ import styled from "styled-components";
 import ReactLoading from "react-loading";
 
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { getPostDB, getMorePostDB } from "./../redux/modules/post";
+import { getPostDB } from "./../redux/modules/post";
 
 const Main = (props) => {
   const postList = useSelector((state) => state.post.postList);
@@ -18,11 +17,6 @@ const Main = (props) => {
   const [pageNum, setPageNum] = useState(1);
   const [target, setTarget] = useState(null); // target
   const [isLoading, setIsLoading] = useState(false); // isLoading
-
-  /* 로그인 유지-tspark20220418 */
-  useEffect(() => {
-    dispatch(userActions.loginCheckApi(token));
-  }, [token]);
 
   const callback = async ([entry], observer) => {
     console.log(entry);
