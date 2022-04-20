@@ -1,5 +1,8 @@
 import Modal from "react-modal";
 import styled from "styled-components";
+import { deleteDB } from "../redux/modules/post";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 const styles = {
   overlay: {
@@ -32,6 +35,8 @@ const styles = {
 };
 
 const PostModal = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isOpen, setIsOpen, setDetail } = props;
 
   const detailOpen = () => {
@@ -62,6 +67,10 @@ const PostModal = (props) => {
         </OptionBox>
         <OptionBox>
           <p
+            onClick={() => {
+              dispatch(deleteDB(props.data));
+              window.location.reload();
+            }}
             style={{
               height: "50px",
               lineHeight: "50px",

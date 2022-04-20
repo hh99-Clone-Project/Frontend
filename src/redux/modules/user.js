@@ -15,28 +15,32 @@ const signUp = createAction(SIGNUP, (userInfo) => ({ userInfo }));
 const logIn = createAction(LOGIN, (userInfo) => ({ userInfo }));
 const logOut = createAction(LOGOUT, () => ({}));
 
-
 //미들웨어
 export const signUpDB = (userInfo) => {
   return function (dispatch, getState) {
+    const frm = new FormData();
+    frm.append("image", userInfo.image, userInfo.image.name);
+    frm.append("username", userInfo.username);
+    frm.append("password", userInfo.password);
+    frm.append("nickname", userInfo.nickname);
+
     axios
-      .post("/user/signup", { ...userInfo })
+      .post("http://3.35.52.88/user/signup", frm)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    dispatch(signUp(userInfo.username));
   };
 };
 
-const loginApi = (username , pwd, navigate) => {
+const loginApi = (username, pwd, navigate) => {
   console.log("username : ", username);
   console.log("pwd : ", pwd);
   
   // http://3.35.52.88/user/login
+
   return async function (dispatch, getState) {
     try {
       const login = await axios.post("http://3.35.52.88/user/login", {
@@ -45,12 +49,11 @@ const loginApi = (username , pwd, navigate) => {
       });
       console.log("login : ", login);
       if (login.data) {
-        alert(`로그인 성공`);
         const token = login.headers.authorization.split("BEARER ");
         localStorage.setItem("token", token[1]);
-        navigate("/main", {replace: true});
-
-        dispatch(loginCheckApi(token));
+        dispatch(loginCheckApi(token[1]));
+        navigate("/main", { replace: true });
+        alert(`로그인 성공`);
       } else {
         alert("닉네임과 패스워드를 다시 확인해주세요.");
       }
@@ -64,19 +67,16 @@ const loginApi = (username , pwd, navigate) => {
 const loginCheckApi = (token) => {
   return async function (dispatch, getState) {
     try {
-      const check = await axios.get(
-        "http://3.35.52.88/api/user/islogin",
-        {
-          headers: {
-            Authorization: `BEARER ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      console.log("check : ", check);
+      const check = await axios.get("http://3.35.52.88/api/user/islogin", {
+        headers: {
+          Authorization: `BEARER ${localStorage.getItem("token")}`,
+        },
+      });
       dispatch(
         logIn({
           username: check.data.username,
           nickname: check.data.nickname,
+          profileImg: check.data.image_src,
         })
       );
     } catch (err) {
@@ -102,13 +102,14 @@ export default handleActions(
         // draft.is_login = true;
         // draft.user = action.payload.user;
         console.log("action : ",action);
+
         draft.userInfo = action.payload.userInfo;
       }),
     [LOGOUT]: (state, action) =>
       produce(state, (draft) => {
         draft.is_login = false;
         draft.user = null;
-        sessionStorage.removeItem("isLogin");
+        localStorage.removeItem("token");
       }),
     [SIGNUP]: (state, action) =>
       produce(state, (draft) => {

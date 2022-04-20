@@ -9,14 +9,14 @@ import UpdateModal from "./UpdateModal";
 // test modal 추가 - tspark20220417
 import Grid from "../elements/Grid";
 import styled from "styled-components";
-import CommentDetailMoreModal from "./CommentDetailMoreModal";
 import CommentDetailViewModal from "./CommentDetailViewModal";
 
+
+
+
 const Post = (props) => {
-
-  console.log(props);
-
   /* tspark20220417 - start */
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -25,7 +25,7 @@ const Post = (props) => {
   const closeModal = () => {
     setModalOpen(false);
   };
- 
+
   /* tspark20220417 - end */
 
 
@@ -97,7 +97,7 @@ const Post = (props) => {
             margin: "0 0 0 14px",
           }}
         >
-          7일 전
+          {props.dayBefore}
         </p>
       </NGrid>
 
@@ -132,7 +132,6 @@ const Post = (props) => {
         >
           팝업창입니다
         </CommentDetailViewModal>
-
         {/*  tspark20220417-End */}
       </NGrid>
       {isOpen ? (
@@ -150,7 +149,7 @@ const Post = (props) => {
   );
 };
 
- /* tspark20220417 - start */
+/* tspark20220417 - start */
 const CommentsShow = styled.div`
   color: #999;
   padding: 6px 16px;
@@ -164,6 +163,6 @@ const ClosePosting = styled.div`
   cursor: pointer;
   z-index: 1000;
 `;
- /* tspark20220417 - end */
+/* tspark20220417 - end */
 
 export default Post;
