@@ -3,7 +3,7 @@ import "../shared/App.css";
 import Modal from "react-modal";
 
 // import { getCommentApi, setCommentApi, deleteCommentApi } from "../../redux/modules/comment";
-import {actionCreators as commentActions } from "../redux/modules/comment"; 
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -20,9 +20,9 @@ import CommentDetailMoreModal from "./CommentDetailMoreModal";
 const CommentDetailViewModal = (props) => {
   const dispatch = useDispatch();
   const { open, closeModal } = props;
-//   useEffect(() => {
-//     dispatch(commentActions.getCommentApi(props.postId));  
-//   });
+  //   useEffect(() => {
+  //     dispatch(commentActions.getCommentApi(props.postId));
+  //   });
 
   // CommentDetailMoreModal Modal
   const [commentDetailMoreModal, SetCommentDetailMoreModal] = useState(false);
@@ -49,20 +49,20 @@ const CommentDetailViewModal = (props) => {
   };
 
   //댓글 작성
-//   const [comment, setComment] = useState("");
-//   const writeComment = (e) => {
-//     setComment(e.target.value);
-//   };
+  //   const [comment, setComment] = useState("");
+  //   const writeComment = (e) => {
+  //     setComment(e.target.value);
+  //   };
 
-//  const clickBtn = () => {
-//     dispatch(
-//       postActions.setCommentApi(post[0].postId, {
-//         comments,
-//         postId: post[0].postId,
-//       })
-//     );
-//     setComment("");
-//   };
+  //  const clickBtn = () => {
+  //     dispatch(
+  //       postActions.setCommentApi(post[0].postId, {
+  //         comments,
+  //         postId: post[0].postId,
+  //       })
+  //     );
+  //     setComment("");
+  //   };
 
   const addLike = () => {
     setLike(true);
@@ -141,11 +141,11 @@ const CommentDetailViewModal = (props) => {
                           onClick={comOpenModal}
                         />
                       </>
-                      
-                        <CommentDetailMoreModal
-                          open={CommentDetailMoreModal}
-                        ></CommentDetailMoreModal>
-                      
+
+                      <CommentDetailMoreModal
+                        open={CommentDetailMoreModal}
+                      ></CommentDetailMoreModal>
+
                       {/* {commentDetailMoreModal ? (
                         <CommentDetailMoreModal
                           open={CommentDetailMoreModal}
@@ -265,7 +265,9 @@ const CommentDetailViewModal = (props) => {
                         onChange={changeComment}
                       />
                       {hasComment !== "" ? (
-                        <Commenting onClick={ () => addComment(postId)}>게시</Commenting>
+                        <Commenting onClick={() => addComment(postId)}>
+                          게시
+                        </Commenting>
                       ) : (
                         <Commenting
                           style={{ opacity: "0.3", pointerEvents: "none" }}
@@ -393,7 +395,7 @@ const MenuArea = styled.div`
   right: -2px;
   cursor: pointer;
   margin: 19px 0px 10px 10px;
-  z-index:9999;
+  z-index: 9999;
 `;
 
 const ContentArea = styled.div`

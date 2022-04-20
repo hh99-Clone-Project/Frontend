@@ -132,7 +132,7 @@ const PostBtn = (props) => {
 
   if (type === "Dm") {
     return (
-      <Dm viewBox="0 0 24 24" fill="black" role="img">
+      <Dm onClick={onClick} viewBox="0 0 24 24" fill="black" role="img">
         <line
           fill="none"
           stroke="currentColor"
