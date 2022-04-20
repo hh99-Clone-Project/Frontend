@@ -5,15 +5,16 @@ import Input from "../elements/NInput";
 import PostBtn from "../elements/PostBtn";
 import PostModal from "./PostModal";
 import UpdateModal from "./UpdateModal";
+import { LikeDB } from "../redux/modules/post";
 
 // test modal 추가 - tspark20220417
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 import CommentDetailViewModal from "./CommentDetailViewModal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const Post = (props) => {
-  console.log(props);
+  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
   /* tspark20220417 - start */
 
@@ -36,6 +37,9 @@ const Post = (props) => {
     setIsOpen(true);
   };
 
+  const Like = () => {
+    dispatch(LikeDB(props.postId));
+  };
   return (
     <NGrid
       margin={props.margin}
@@ -46,7 +50,7 @@ const Post = (props) => {
     >
       <NGrid height={"72px"} is_flex>
         <Image
-          src={require("../static/IU.jpg")}
+          src={props.imageSrc}
           type="circle"
           width="30px"
           height="30px"
@@ -63,7 +67,7 @@ const Post = (props) => {
               width: "30px",
               cursor: "pointer",
               visibility:
-                userInfo.nickname == props.nickname ? "visible" : "hidden",
+                userInfo?.nickname === props?.nickname ? "visible" : "hidden",
             }}
           >
             <circle cx="12" cy="34" r="1.5" />
@@ -81,7 +85,11 @@ const Post = (props) => {
       ></Image>
       <NGrid is_flex height={"50px"}>
         <NGrid is_flex width={"112px"} height={"24px"} margin={"0 0 0 8px"}>
-          <PostBtn />
+          {props.favoriteStatus ? (
+            <PostBtn onClick={Like} />
+          ) : (
+            <PostBtn onClick={Like} type={"disLike"} />
+          )}
           <PostBtn type={"Comment"} />
           <PostBtn type={"Dm"} />
         </NGrid>
@@ -134,8 +142,7 @@ const Post = (props) => {
           open={modalOpen}
           close={closeModal}
           header="Modal"
-        >
-        </CommentDetailViewModal>
+        ></CommentDetailViewModal>
         {/*  tspark20220417-End */}
       </NGrid>
       {isOpen ? (

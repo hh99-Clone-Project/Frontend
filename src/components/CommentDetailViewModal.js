@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../shared/App.css";
 
 // import { getCommentApi, setCommentApi, deleteCommentApi } from "../../redux/modules/comment";
@@ -17,7 +17,7 @@ import { CgSmile } from "react-icons/cg";
 import CommentDetailMoreModal from "./CommentDetailMoreModal";
 
 const CommentDetailViewModal = (props) => {
-  console.log(props);
+  // console.log(props);
   const dispatch = useDispatch();
   const { open, close, data } = props;
   //   useEffect(() => {
@@ -34,7 +34,7 @@ const CommentDetailViewModal = (props) => {
   const [addLiked, setAddLiked] = useState(0);
 
   const postId = props.data.postId;
-  console.log("postId : ",postId)
+  // console.log("postId : ",postId)
   const imgUrl = props.imgUrl;
   const postUsername = props.postUsername;
   const postProfileUrl = props.postProfileUrl;
@@ -116,7 +116,6 @@ const CommentDetailViewModal = (props) => {
         className={open ? "openModal modal" : "modal"}
         //ref={wrapperRef} value={open}
         //onClick={close}
-        
       >
         {open ? (
           <>

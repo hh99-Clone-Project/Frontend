@@ -19,9 +19,7 @@ const Main = (props) => {
   const [isLoading, setIsLoading] = useState(false); // isLoading
 
   const callback = async ([entry], observer) => {
-    console.log(entry);
     if (entry.isIntersecting && !isLoading) {
-      console.log("아니 이게 찍힌다고?");
       observer.unobserve(entry.target);
       setIsLoading(true);
       await new Promise((resolve) => {

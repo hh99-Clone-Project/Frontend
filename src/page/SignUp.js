@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import NGrid from "../elements/NGrid";
 import NInput from "../elements/NInput";
 import Image from "../elements/NImage";
@@ -7,19 +7,24 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
 import NImage from "../elements/NImage";
+import { useNavigate } from "react-router";
+import { normalizeUnits } from "moment";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [dup, setDup] = useState(null);
+  const [id, setId] = useState();
   const [files, setFiles] = useState({
     preImg: "",
     upImg: "",
   });
   const [inputs, setInputs] = useState({
-    id: "",
     nickname: "",
     pw: "",
+    pwCheck: "",
   });
-
+  const { nickname, pw, pwCheck } = inputs;
   const upFile = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -31,23 +36,42 @@ const SignUp = () => {
     };
   };
 
-  const { id, nickname, pw } = inputs;
   const onChange = (e) => {
     console.log("이건 바로바로");
     setInputs({
       ...inputs,
       [e.target.name]: e.target.value,
     });
+  };
+  const onChangeId = (e) => {
+    setId(e.target.value);
     checkDup(id);
   };
 
-  console.log(inputs);
-  const checkDup = (id) => {
-    // console.log("스로틀");
-    dispatch(userActions.checkDupDB(id));
-  };
+  const checkDup = useCallback(
+    _.debounce((id) => {
+      console.log(id);
+      dispatch(userActions.checkDupDB(id, setDup));
+    }, 2000),
+    []
+  );
 
   const signUp = () => {
+    if (!id) {
+      return alert("아이디를 입력해주세요");
+    }
+    if (!nickname) {
+      return alert("닉네임을 입력해주세요");
+    }
+    if (!pw) {
+      return alert("비밀번호를 입력해주세요");
+    }
+    if (pw !== pwCheck) {
+      return alert("비밀번호가 다릅니다. 확인해주세요");
+    }
+    if (!files.upImg) {
+      return alert("프로필 사진을 올려주세요.");
+    }
     const userData = {
       image: files.upImg,
       username: id,
@@ -55,6 +79,7 @@ const SignUp = () => {
       password: pw,
     };
     dispatch(userActions.signUpDB(userData));
+    navigate("/", { replace: true });
   };
 
   return (
@@ -102,9 +127,23 @@ const SignUp = () => {
           <NInput
             name="id"
             margin={"5px auto"}
-            onChange={onChange}
+            onChange={onChangeId}
             placehorder={"아이디"}
           />
+          {dup ? null : (
+            <div
+              style={{
+                width: "37px",
+                height: "37px",
+                margin: "-42px 0 5px 223px",
+                zIndex: "10",
+                position: "relative",
+                fontSize: "25px",
+              }}
+            >
+              ❌
+            </div>
+          )}
           <NInput
             name="nickname"
             margin={"0px auto"}
@@ -119,7 +158,9 @@ const SignUp = () => {
             type={"password"}
           />
           <NInput
+            name="pwCheck"
             margin={"0px auto"}
+            onChange={onChange}
             placehorder={"비밀번호 확인"}
             type={"password"}
           />
@@ -151,9 +192,27 @@ const SignUp = () => {
             </label>
           </NGrid>
         </NGrid>
-        <Button onClick={signUp} margin={"30px auto"}>
-          가입
-        </Button>
+        {dup ? (
+          <Button onClick={signUp} margin={"30px auto"}>
+            가입
+          </Button>
+        ) : (
+          <div
+            style={{
+              width: "270px",
+              height: "30px",
+              lineHeight: "30px",
+              color: "#ffffff",
+              textAlign: "center",
+              backgroundColor: "#B2DFFC",
+              border: "none",
+              borderRadius: "0.4rem",
+              margin: "30px auto",
+            }}
+          >
+            가입
+          </div>
+        )}
       </NGrid>
       <NGrid>
         <NGrid
