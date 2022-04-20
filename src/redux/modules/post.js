@@ -45,7 +45,7 @@ export const addPostDB = (data, token) => {
   };
 };
 
-export const getPostDB = (token, page, setIsLoading) => {
+export const getPostDB = (token, page) => {
   return function (dispatch, getState) {
     axios
       .get(`http://3.35.52.88/api/posts?page=${page}`, {
@@ -54,9 +54,6 @@ export const getPostDB = (token, page, setIsLoading) => {
         },
       })
       .then((res) => {
-        if (res.data.length === 0) {
-          return alert("마지막 게시글 입니다");
-        }
         dispatch(getPost(res.data));
       })
       .catch((err) => {
