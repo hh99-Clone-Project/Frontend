@@ -3,6 +3,7 @@ import "../shared/App.css";
 
 // import { getCommentApi, setCommentApi, deleteCommentApi } from "../../redux/modules/comment";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import post, { actionCreators as postActions } from "../redux/modules/post";
 
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -15,100 +16,99 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiBookmarkLine } from "react-icons/ri";
 import { CgSmile } from "react-icons/cg";
 import CommentDetailMoreModal from "./CommentDetailMoreModal";
+import { countBy } from "lodash";
 
 const CommentDetailViewModal = (props) => {
-  console.log(props);
+  //console.log("comment Props : ", props);
   const dispatch = useDispatch();
   const { open, close, data } = props;
-  //   useEffect(() => {
-  //     dispatch(commentActions.getCommentApi(props.postId));
-  //   });
+  
+  const commentsList = useSelector((state) => (state.comment.list.comments));
+    
+  //console.log("comments : ",commentsList);
+  
+  const loginUser = useSelector((state) => (state.user?.userInfo));
+  const postList = useSelector((state) => (state.post.postList));
 
-  // CommentDetailMoreModal Modal
+  // CommentDetailMoreModal Modal  
   const [commentDetailMoreModal, SetCommentDetailMoreModal] = useState(false);
-
   const [hasComment, setHasComment] = useState("");
   const [like, setLike] = useState(props.like);
   const liked = props.like;
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
-
+  
+  // Props에서 data받아오기
   const postId = props.data.postId;
-  console.log("postId : ",postId)
-  const imgUrl = props.imgUrl;
-  const postUsername = props.postUsername;
-  const postProfileUrl = props.postProfileUrl;
-  const postContent = props.postContent;
-
+  // console.log("postId : ",postId)
+  const imageFile = props.data.imageFile;
+  const postNickname = props.data.nickname;
+  const imageSrc = props.data.imageSrc;
+  //const comment = props.data.contents;
+  
+  // input에 넣은 text 값 가져오기
   const changeComment = (e) => {
     setHasComment(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   const addComment = (postId) => {
     dispatch(commentActions.addCommentApi(postId, hasComment));
-    console.log(hasComment);
+    // console.log(hasComment);
   };
-
+  
   //댓글 작성
   //   const [comment, setComment] = useState("");
   //   const writeComment = (e) => {
-  //     setComment(e.target.value);
-  //   };
+    //     setComment(e.target.value);
+    //   };
 
   //  const clickBtn = () => {
-  //     dispatch(
-  //       postActions.setCommentApi(post[0].postId, {
-  //         comments,
-  //         postId: post[0].postId,
-  //       })
-  //     );
-  //     setComment("");
-  //   };
-
-  const addLike = () => {
-    setLike(true);
-    setAddLiked(1);
-    setDelLiked(0);
-    //addLikeDB(postId);
-  };
-
-  const delLike = () => {
-    setLike(false);
-    setAddLiked(0);
-    setDelLiked(-1);
-    //addLikeDB(postId);
-  };
-
-  const deleteComment = (commentId1) => {
-    //dispatch(deleteCommentDB(postId, commentId1));
-  };
-
-  const comOpenModal = () => {
-    SetCommentDetailMoreModal(true);
-  };
-  // const commentDetailOpen = () => {
+    //     dispatch(
+      //       postActions.setCommentApi(post[0].postId, {
+        //         comments,
+        //         postId: post[0].postId,
+        //       })
+        //     );
+        //     setComment("");
+        //   };
+        
+        const addLike = () => {
+          setLike(true);
+          setAddLiked(1);
+          setDelLiked(0);
+          //addLikeDB(postId);
+        };
+        
+        const delLike = () => {
+          setLike(false);
+          setAddLiked(0);
+          setDelLiked(-1);
+          //addLikeDB(postId);
+        };
+        
+        const deleteComment = (commentId1) => {
+          //dispatch(deleteCommentDB(postId, commentId1));
+        };
+        
+        const comOpenModal = () => {
+          SetCommentDetailMoreModal(true);
+        };
+        // const commentDetailOpen = () => {
   //   closeModal(false);
   // };
+  
+  
+  
+  useEffect(() => {
+    // 클릭한 게시물 ID와 같은 게시물의 인 경우 
+    if(postId == postList.postId){
+      dispatch(commentActions.getCommentApi(postId));
+    }
+    console.log("hi");
+  },[open]);
+  
 
-  // modal영역 밖 닫기
-  // const wrapperRef = useRef();
-  // useEffect(()=>{
-  //   document.addEventListener('mousedown', handleClickOutside);
-
-  //   return()=>{
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   }
-
-  // })
-  // const handleClickOutside=(event)=>{
-  //   if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-  //     close(false);
-  //   }
-  //   else {
-  //     close(true);
-  //   }
-  // }
 
   return (
     <>
@@ -116,10 +116,10 @@ const CommentDetailViewModal = (props) => {
         className={open ? "openModal modal" : "modal"}
         //ref={wrapperRef} value={open}
         //onClick={close}
-        
       >
         {open ? (
           <>
+            <div > </div>
             <ModalArea>
               <LeftArea
                 style={{
@@ -128,17 +128,13 @@ const CommentDetailViewModal = (props) => {
                   display: "flex",
                 }}
               >
-                <Img src={require("../static/IU.jpg")} />
+                <Img src={imageFile} />
               </LeftArea>
               <RightArea>
                 <WriterInfo>
                   <Link to="/" style={{ marginLeft: "initial" }}>
                     <PostTitleImgArea>
-                      {/* <PostTitleImg src={postProfileUrl} alt="프로필 이미지" /> */}
-                      <PostTitleImg
-                        src={require("../static/IU.jpg")}
-                        alt="프로필 이미지"
-                      />
+                      <PostTitleImg src={imageSrc} alt="프로필 이미지" />
                     </PostTitleImgArea>
                   </Link>
                   <Link
@@ -149,8 +145,7 @@ const CommentDetailViewModal = (props) => {
                       margin: "10px 2px 11px -36px",
                     }}
                   >
-                    {/* <PostTitle>{postUsername}</PostTitle> */}
-                    <PostTitle>JiEun</PostTitle>
+                    <PostTitle>{postNickname}</PostTitle>
                   </Link>
                   •<Follow>팔로우</Follow>
                   <div>
@@ -163,9 +158,13 @@ const CommentDetailViewModal = (props) => {
                         />
                       </>
 
-                      <CommentDetailMoreModal
-                        open={CommentDetailMoreModal}
-                      ></CommentDetailMoreModal>
+                      {commentDetailMoreModal ? (
+                        <CommentDetailMoreModal></CommentDetailMoreModal>
+                      ) : null}
+
+                      {/* <CommentDetailMoreModal
+                        open={commentDetailMoreModal}
+                      ></CommentDetailMoreModal> */}
 
                       {/* {commentDetailMoreModal ? (
                         <CommentDetailMoreModal
@@ -197,8 +196,7 @@ const CommentDetailViewModal = (props) => {
                               color: "black",
                             }}
                           >
-                            {/* {postUsername} */}
-                            jiEun
+                            {postNickname}
                           </PostTitle>
                         </Link>
                         {/* {postContent &&
@@ -214,11 +212,32 @@ const CommentDetailViewModal = (props) => {
                           }}
                         >
                           <PostTitleImg
-                            // src={postProfileUrl}
-                            src="https://bbs.bepick.in/bbs/2021/07/bcfac7b78517615749d3aa820f92c1b8_1315146742.jpg"
-                            alt="프로필 이미지"
+                            src={imageSrc}
+                            // src="https://bbs.bepick.in/bbs/2021/07/bcfac7b78517615749d3aa820f92c1b8_1315146742.jpg"
+                            alt="이미지"
                           />
                         </PostTitleImgArea>
+                        {commentsList?.map((c) => {
+                          const commentId = c.commentId;
+                          return (
+                            <Comments key={c.commentId}>
+                              <div>
+                                <img src={c.imageSrc}></img>
+                                <span>{c.nickname}</span>
+                                <p>{c.comment}</p>
+                              </div>
+                              {c.nickname === loginUser.nickname ? (
+                                <button
+                                  onClick={() => {
+                                    //commentDeleteClick(commentId);
+                                  }}
+                                >
+                                  삭제
+                                </button>
+                              ) : null}
+                            </Comments >
+                          );
+                        })}
                       </div>
                     </Contents>
                   </Scroll>
