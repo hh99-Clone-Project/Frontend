@@ -125,9 +125,8 @@ const Post = (props) => {
           data={props}
           open={modalOpen}
           close={closeModal}
-          header="Modal heading"
+          header="Modal"
         >
-          팝업창입니다
         </CommentDetailViewModal>
         {/*  tspark20220417-End */}
       </NGrid>

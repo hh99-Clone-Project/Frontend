@@ -24,19 +24,7 @@ export const RESP = {
       status: 200,
     },
 
-    // {
-    //     "postId": "1",
-    //     "imageFile": "/images/basic.jpg",
-    //     "content": "내용",
-    //     "dayBefore": "7일 전",
-    //     "commentCnt": "2개",
-    //     "nickname": "정영호"
-    //     “comments” : [{
-    //             “commentId”: “댓글 id”
-    //             “nickname”: “닉네임”,
-    //              “contents”: “댓글 내용”
-    //     }... 댓글 여러개]
-    // }
+    
     POSTSPOST: [
       {
         postId: 1,
