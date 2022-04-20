@@ -24,6 +24,8 @@ const Input = (props) => {
           type={type}
           onChange={_onChange}
           placeholder={placeholder}
+          margin={margin}
+          padding={padding}
         ></MainInput>
       </React.Fragment>
     );
@@ -38,10 +40,11 @@ Input.defaultProps = {
 
 const MainInput = styled.input`
   margin: ${(props) => props.margin};
+  padding: ${(props)=> props.padding};
   text-overflow: ellipsis;
   width: 260px;
   height: 32px;
-  margin: 10px auto;
+  //margin: 10px auto;
   border: 1px solid lightgray;
   border-radius: 0.4rem;
   background-color: #fafafa;
