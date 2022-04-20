@@ -41,10 +41,11 @@ const SignUp = () => {
     checkDup(id);
   };
 
-  const checkDup = _.throttle((id) => {
-    console.log("스로틀");
-    // dispatch(userActions.checkDupDB(id));
-  }, 10000);
+  console.log(inputs);
+  const checkDup = (id) => {
+    // console.log("스로틀");
+    dispatch(userActions.checkDupDB(id));
+  };
 
   const signUp = () => {
     const userData = {
@@ -101,7 +102,7 @@ const SignUp = () => {
           <NInput
             name="id"
             margin={"5px auto"}
-            onChange={checkDup}
+            onChange={onChange}
             placehorder={"아이디"}
           />
           <NInput

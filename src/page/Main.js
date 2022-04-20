@@ -75,7 +75,7 @@ const Main = (props) => {
             </LoaderWrap>
           </NGrid>
         ) : null}
-        <div ref={setTarget}></div>
+        <div style={{ border: "10px solid red" }} ref={setTarget}></div>
       </div>
     </>
   );
