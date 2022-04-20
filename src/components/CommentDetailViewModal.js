@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../shared/App.css";
 
 // import { getCommentApi, setCommentApi, deleteCommentApi } from "../../redux/modules/comment";
@@ -19,7 +19,6 @@ import CommentDetailMoreModal from "./CommentDetailMoreModal";
 import { countBy } from "lodash";
 
 const CommentDetailViewModal = (props) => {
-  //console.log("comment Props : ", props);
   const dispatch = useDispatch();
   const { open, close, data } = props;
   
@@ -41,12 +40,14 @@ const CommentDetailViewModal = (props) => {
   // Props에서 data받아오기
   const postId = props.data.postId;
   // console.log("postId : ",postId)
+
   const imageFile = props.data.imageFile;
   const postNickname = props.data.nickname;
   const imageSrc = props.data.imageSrc;
   //const comment = props.data.contents;
   
   // input에 넣은 text 값 가져오기
+
   const changeComment = (e) => {
     setHasComment(e.target.value);
     // console.log(e.target.value);

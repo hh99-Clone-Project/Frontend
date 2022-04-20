@@ -8,6 +8,7 @@ const UPDATE = "UPDATE";
 const DELETE = "DELETE";
 const GETPOST = "GETPOST";
 const MOREPOST = "MOREPOST";
+const LIKE = "LIKE";
 
 //initialState
 const initialState = {
@@ -19,7 +20,7 @@ const addPost = createAction(ADDPOST, (postInfo) => ({ postInfo }));
 const getPost = createAction(GETPOST, (postList) => ({ postList }));
 const updatePost = createAction(UPDATE, (postInfo) => ({ postInfo }));
 const deletePost = createAction(DELETE, (postInfo) => ({ postInfo }));
-const morePost = createAction(MOREPOST, (postList) => ({ postList }));
+const likePost = createAction(LIKE, (postId) => ({ postId }));
 
 //미들웨어
 export const addPostDB = (data, token) => {
@@ -44,9 +45,12 @@ export const addPostDB = (data, token) => {
   };
 };
 
-export const getPostDB = (token, page, setIsLoading) => {
+export const getPostDB = (token, page) => {
   return function (dispatch, getState) {
+<<<<<<< HEAD
+=======
     // console.log(page);
+>>>>>>> b5e4fd597758046348d9a79bd3e4b29845a57f6a
     axios
       .get(`http://3.35.52.88/api/posts?page=${page}`, {
         headers: {
@@ -54,27 +58,7 @@ export const getPostDB = (token, page, setIsLoading) => {
         },
       })
       .then((res) => {
-        if (res.data.length === 0) {
-          return alert("마지막 게시글 입니다");
-        }
         dispatch(getPost(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-
-export const getMorePostDB = (token, page, setIsLoading) => {
-  return function (dispatch, getState) {
-    axios
-      .get(`http://3.35.52.88/api/posts?page=${page}`, {
-        headers: {
-          Authorization: `BEARER ${token}`,
-        },
-      })
-      .then((res) => {
-        dispatch(morePost(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -103,7 +87,6 @@ export const updateDB = (postInfo) => {
 };
 export const deleteDB = (postInfo) => {
   return function (dispatch, getState) {
-    dispatch(deletePost(postInfo));
     axios
       .delete(`http://3.35.52.88/api/posts/${postInfo.postId}`, {
         headers: {
@@ -111,7 +94,27 @@ export const deleteDB = (postInfo) => {
         },
       })
       .then((res) => {
+        dispatch(deletePost(postInfo));
+      })
+      .catch((err) => {});
+  };
+};
+
+export const LikeDB = (postId) => {
+  return function (dispatch, getState) {
+    axios
+      .put(
+        `http://3.35.52.88/api/posts/${postId}`,
+        {},
+        {
+          headers: {
+            Authorization: `BEARER ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
         console.log(res);
+        dispatch(likePost(postId));
       })
       .catch((err) => {
         console.log(err);
@@ -133,7 +136,7 @@ export default handleActions(
         );
         console.log(action.payload.postInfo);
         draft.postList[idx] = {
-          ...draft.postList[0],
+          ...draft.postList[idx],
           content: action.payload.postInfo.contents,
         };
       }),
@@ -145,12 +148,17 @@ export default handleActions(
       }),
     [GETPOST]: (state, action) =>
       produce(state, (draft) => {
-        //console.log(action.payload.postList);
         draft.postList.push(...action.payload.postList);
       }),
-    [MOREPOST]: (state, action) =>
+    [LIKE]: (state, action) =>
       produce(state, (draft) => {
-        draft.postList.push(...action.payload.postList);
+        let idx = draft.postList.findIndex(
+          (cur) => cur.postId === action.payload.postId
+        );
+        draft.postList[idx] = {
+          ...draft.postList[idx],
+          favoriteStatus: draft.postList[idx].favoriteStatus ? false : true,
+        };
       }),
   },
   initialState

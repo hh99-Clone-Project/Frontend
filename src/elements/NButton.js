@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const NButton = (props) => {
-  const { onClick, width, height, margin, children } = props;
+  const { onClick, width, height, margin, children,dup } = props;
   const styles = { width, height, margin };
   return (
     <ElButton onClick={onClick} {...styles}>
