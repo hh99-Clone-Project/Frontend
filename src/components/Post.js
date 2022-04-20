@@ -10,8 +10,11 @@ import UpdateModal from "./UpdateModal";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 import CommentDetailViewModal from "./CommentDetailViewModal";
+import { useSelector } from "react-redux";
 
 const Post = (props) => {
+  console.log(props);
+  const userInfo = useSelector((state) => state.user.userInfo);
   /* tspark20220417 - start */
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -56,7 +59,12 @@ const Post = (props) => {
         <NGrid height={"100%"} line_height={"72px"}>
           <svg
             onClick={detailOpen}
-            style={{ width: "30px", cursor: "pointer" }}
+            style={{
+              width: "30px",
+              cursor: "pointer",
+              visibility:
+                userInfo.nickname == props.nickname ? "visible" : "hidden",
+            }}
           >
             <circle cx="12" cy="34" r="1.5" />
             <circle cx="6" cy="34" r="1.5" />
