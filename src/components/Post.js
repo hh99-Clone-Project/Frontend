@@ -98,8 +98,36 @@ const Post = (props) => {
         </NGrid>
       </NGrid>
 
-      <NGrid height="72px" border="1px solid red">
-        <button onClick={openModal}>모달팝업</button>
+      <NGrid height="72px" padding="10px">
+        <NGrid width="200px" margin="0" is_flex>
+          <p
+            style={{
+              width: "40px",
+              fontWeight: "600",
+              margin: "0",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {props?.nickname}
+          </p>
+          <p
+            style={{
+              margin: "0 0 0 0",
+              width: "155px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {props.content}
+          </p>
+        </NGrid>
+
+        <p style={{ color: "#8E8EAB", cursor: "pointer" }} onClick={openModal}>
+          댓글{props.commentCnt}개 모두 보기
+        </p>
       </NGrid>
       <NGrid height="33px" line_height="33px">
         <p
