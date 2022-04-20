@@ -38,6 +38,8 @@ export const signUpDB = (userInfo) => {
 const loginApi = (username, pwd, navigate) => {
   console.log("username : ", username);
   console.log("pwd : ", pwd);
+  
+  // http://3.35.52.88/user/login
 
   return async function (dispatch, getState) {
     try {
@@ -99,6 +101,8 @@ export default handleActions(
       produce(state, (draft) => {
         // draft.is_login = true;
         // draft.user = action.payload.user;
+        console.log("action : ",action);
+
         draft.userInfo = action.payload.userInfo;
       }),
     [LOGOUT]: (state, action) =>
