@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import "../shared/App.css";
-import Modal from "react-modal";
 
 // import { getCommentApi, setCommentApi, deleteCommentApi } from "../../redux/modules/comment";
 import { actionCreators as commentActions } from "../redux/modules/comment";
@@ -20,7 +19,7 @@ import CommentDetailMoreModal from "./CommentDetailMoreModal";
 const CommentDetailViewModal = (props) => {
   console.log(props);
   const dispatch = useDispatch();
-  const { open, closeModal, data } = props;
+  const { open, close, data } = props;
   //   useEffect(() => {
   //     dispatch(commentActions.getCommentApi(props.postId));
   //   });
@@ -35,6 +34,7 @@ const CommentDetailViewModal = (props) => {
   const [addLiked, setAddLiked] = useState(0);
 
   const postId = props.data.postId;
+  console.log("postId : ",postId)
   const imgUrl = props.imgUrl;
   const postUsername = props.postUsername;
   const postProfileUrl = props.postProfileUrl;
@@ -47,6 +47,7 @@ const CommentDetailViewModal = (props) => {
 
   const addComment = (postId) => {
     dispatch(commentActions.addCommentApi(postId, hasComment));
+    console.log(hasComment);
   };
 
   //댓글 작성
@@ -86,26 +87,45 @@ const CommentDetailViewModal = (props) => {
   const comOpenModal = () => {
     SetCommentDetailMoreModal(true);
   };
-  const commentDetailOpen = () => {
-    closeModal(false);
-  };
+  // const commentDetailOpen = () => {
+  //   closeModal(false);
+  // };
+
+  // modal영역 밖 닫기
+  // const wrapperRef = useRef();
+  // useEffect(()=>{
+  //   document.addEventListener('mousedown', handleClickOutside);
+
+  //   return()=>{
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   }
+
+  // })
+  // const handleClickOutside=(event)=>{
+  //   if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+  //     close(false);
+  //   }
+  //   else {
+  //     close(true);
+  //   }
+  // }
+
   return (
     <>
       <div
         className={open ? "openModal modal" : "modal"}
-        onRequestClose={() => {
-          console.log("모달아 제발 꺼져라..");
-          closeModal(false);
-        }}
+        //ref={wrapperRef} value={open}
+        //onClick={close}
+        
       >
         {open ? (
           <>
             <ModalArea>
               <LeftArea
                 style={{
-                  display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  display: "flex",
                 }}
               >
                 <Img src={require("../static/IU.jpg")} />

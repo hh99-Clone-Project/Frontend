@@ -117,19 +117,24 @@ const LogIn = () => {
                 mainInput
                 placeholder="username"
                 _onChange={userCheck}
-              ></Input>
+                margin= {"9px auto"}
+                padding={"7px 0 7px 8px"} 
+              >
+              </Input>
               {/* Password 입력 */}
               <Input
                 mainInput
                 type ="password"
                 placeholder="password"
                 _onChange={pwdCheck}
+                margin= {"9px auto"}
+                padding={"7px 0 7px 8px"} 
               ></Input>
 
               {/* Login Button */}
               <Button 
                 mainButton text="로그인" 
-                margin={"4px 54px"} 
+                margin={"9px 54px"} 
                 width={"260px"}  
                 _onClick={loginClick}
                 />
