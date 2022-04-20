@@ -18,8 +18,9 @@ import { CgSmile } from "react-icons/cg";
 import CommentDetailMoreModal from "./CommentDetailMoreModal";
 
 const CommentDetailViewModal = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
-  const { open, closeModal } = props;
+  const { open, closeModal, data } = props;
   //   useEffect(() => {
   //     dispatch(commentActions.getCommentApi(props.postId));
   //   });
@@ -33,7 +34,7 @@ const CommentDetailViewModal = (props) => {
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
 
-  const postId = props.postId;
+  const postId = props.data.postId;
   const imgUrl = props.imgUrl;
   const postUsername = props.postUsername;
   const postProfileUrl = props.postProfileUrl;
