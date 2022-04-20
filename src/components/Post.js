@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import Input from "../elements/NInput";
@@ -10,9 +10,6 @@ import UpdateModal from "./UpdateModal";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 import CommentDetailViewModal from "./CommentDetailViewModal";
-
-
-
 
 const Post = (props) => {
   /* tspark20220417 - start */
@@ -27,7 +24,6 @@ const Post = (props) => {
   };
 
   /* tspark20220417 - end */
-
 
   const [isOpen, setIsOpen] = useState(false);
   const [detail, setDetail] = useState(false);
@@ -86,7 +82,9 @@ const Post = (props) => {
         </NGrid>
       </NGrid>
 
-      <NGrid height="72px" border="1px solid red"></NGrid>
+      <NGrid height="72px" border="1px solid red">
+        <button onClick={openModal}>모달팝업</button>
+      </NGrid>
       <NGrid height="33px" line_height="33px">
         <p
           style={{
@@ -123,9 +121,8 @@ const Post = (props) => {
           </p>
         </NGrid>
 
-        <button onClick={openModal}> 모달팝업</button>
-
         <CommentDetailViewModal
+          data={props}
           open={modalOpen}
           close={closeModal}
           header="Modal heading"
