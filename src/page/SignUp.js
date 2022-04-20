@@ -45,7 +45,7 @@ const SignUp = () => {
   };
   const onChangeId = (e) => {
     setId(e.target.value);
-    checkDup(id);
+    checkDup(e.target.value);
   };
 
   const checkDup = useCallback(

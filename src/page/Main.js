@@ -14,11 +14,13 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
 
+  const [items, setItems] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [target, setTarget] = useState(null); // target
   const [isLoading, setIsLoading] = useState(false); // isLoading
 
   const callback = async ([entry], observer) => {
+    console.log(entry);
     if (entry.isIntersecting && !isLoading) {
       observer.unobserve(entry.target);
       setIsLoading(true);
