@@ -31,62 +31,71 @@ const styles = {
   },
 };
 
-const CommentDetaillModal = (props) => {
-  const { commentDetailView, setCommentDetailView, setCommentDetailMoreModal } = props;
+const CommentDetaillMoreModal = (props) => {
+  const { CommentDetailMoreModal } = props;
 
   const commentDetailOpen = () => {
-    setCommentDetailView(true);  // 댓글조회 modal 관리 
-    setCommentDetailMoreModal(false);   // 댓글조회에서 더보기 버튼 modal 관리
+    //setCommentDetailView(true);  // 댓글조회 modal 관리 
+    //setCommentDetailMoreModal(false);   // 댓글조회에서 더보기 버튼 modal 관리
   };
   return (
     <>
-      <Modal
-        commentDetailView={commentDetailView}
-        style={styles}
-        onRequestClose={() => {
-          setCommentDetailView(false);
-        }}
+      <div className={CommentDetailMoreModal ? "openModal modal" : "modal"}>
+        {CommentDetailMoreModal ? (
+          <>
+            <OptionBox>
+              <p
+                style={{
+                  height: "50px",
+                  lineHeight: "50px",
+                  textAlign: "center",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  color: "#EF5E6A",
+                }}
+              >
+                신고
+              </p>
+            </OptionBox>
+
+            <OptionBox>
+              <p
+                style={{
+                  height: "50px",
+                  lineHeight: "50px",
+                  textAlign: "center",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  color: "#EF5E6A",
+                }}
+              >
+                팔로우
+              </p>
+            </OptionBox>
+
+            <ModalWrap>공유대상...</ModalWrap>
+            <ModalWrap>링크 복사</ModalWrap>
+            <ModalWrap>퍼가기</ModalWrap>
+            <ModalWrap
+            // onRequestClose={() => {
+            //   setCommentDetailView(false)}}
+            // style={{border:"none"}}
+            >
+              취소
+            </ModalWrap>
+          </>
+        ) : null}
+
+        {/* <Modal
+        commentDetailView={CommentDetailMoreModal}
+        style={{zIndex:9999}}
+        // onRequestClose={() => {
+        //   setCommentDetailView(false);
+        // }}
       >
-        <OptionBox>
-          <p
-            style={{
-              height: "50px",
-              lineHeight: "50px",
-              textAlign: "center",
-              fontWeight: "700",
-              fontSize: "14px",
-              color: "#EF5E6A",
-            }}
-          >
-            신고
-          </p>
-        </OptionBox>
-
-        <OptionBox>
-          <p
-            style={{
-              height: "50px",
-              lineHeight: "50px",
-              textAlign: "center",
-              fontWeight: "700",
-              fontSize: "14px",
-              color: "#EF5E6A",
-            }}
-          >
-            팔로우
-          </p>
-        </OptionBox>
-
-        <ModalWrap>공유대상...</ModalWrap>
-        <ModalWrap>링크 복사</ModalWrap>
-        <ModalWrap>퍼가기</ModalWrap>
-        <ModalWrap 
-            onRequestClose={() => {
-              setCommentDetailView(false)}}
-            style={{border:"none"}}    
-        >취소
-        </ModalWrap>
-      </Modal>
+        
+      </Modal> */}
+      </div>
     </>
   );
 };
@@ -116,4 +125,4 @@ const ModalWrap = styled.div`
 `;
 
 
-export default CommentDetaillModal;
+export default CommentDetaillMoreModal;
