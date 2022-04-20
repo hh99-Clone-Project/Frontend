@@ -37,7 +37,6 @@ const SignUp = () => {
   };
 
   const onChange = (e) => {
-    console.log("이건 바로바로");
     setInputs({
       ...inputs,
       [e.target.name]: e.target.value,
@@ -50,9 +49,8 @@ const SignUp = () => {
 
   const checkDup = useCallback(
     _.debounce((id) => {
-      console.log(id);
       dispatch(userActions.checkDupDB(id, setDup));
-    }, 2000),
+    }, 1000),
     []
   );
 

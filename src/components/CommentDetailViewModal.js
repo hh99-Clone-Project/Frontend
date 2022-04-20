@@ -21,22 +21,22 @@ import { countBy } from "lodash";
 const CommentDetailViewModal = (props) => {
   const dispatch = useDispatch();
   const { open, close, data } = props;
-  
-  const commentsList = useSelector((state) => (state.comment.list.comments));
-    
-  //console.log("comments : ",commentsList);
-  
-  const loginUser = useSelector((state) => (state.user?.userInfo));
-  const postList = useSelector((state) => (state.post.postList));
 
-  // CommentDetailMoreModal Modal  
+  const commentsList = useSelector((state) => state.comment.list.comments);
+
+  //console.log("comments : ",commentsList);
+
+  const loginUser = useSelector((state) => state.user?.userInfo);
+  const postList = useSelector((state) => state.post.postList);
+
+  // CommentDetailMoreModal Modal
   const [commentDetailMoreModal, SetCommentDetailMoreModal] = useState(false);
   const [hasComment, setHasComment] = useState("");
   const [like, setLike] = useState(props.like);
   const liked = props.like;
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
-  
+
   // Props에서 data받아오기
   const postId = props.data.postId;
   // console.log("postId : ",postId)
@@ -45,7 +45,7 @@ const CommentDetailViewModal = (props) => {
   const postNickname = props.data.nickname;
   const imageSrc = props.data.imageSrc;
   //const comment = props.data.contents;
-  
+
   // input에 넣은 text 값 가져오기
 
   const changeComment = (e) => {
@@ -57,59 +57,55 @@ const CommentDetailViewModal = (props) => {
     dispatch(commentActions.addCommentApi(postId, hasComment));
     // console.log(hasComment);
   };
-  
+
   //댓글 작성
   //   const [comment, setComment] = useState("");
   //   const writeComment = (e) => {
-    //     setComment(e.target.value);
-    //   };
+  //     setComment(e.target.value);
+  //   };
 
   //  const clickBtn = () => {
-    //     dispatch(
-      //       postActions.setCommentApi(post[0].postId, {
-        //         comments,
-        //         postId: post[0].postId,
-        //       })
-        //     );
-        //     setComment("");
-        //   };
-        
-        const addLike = () => {
-          setLike(true);
-          setAddLiked(1);
-          setDelLiked(0);
-          //addLikeDB(postId);
-        };
-        
-        const delLike = () => {
-          setLike(false);
-          setAddLiked(0);
-          setDelLiked(-1);
-          //addLikeDB(postId);
-        };
-        
-        const deleteComment = (commentId1) => {
-          //dispatch(deleteCommentDB(postId, commentId1));
-        };
-        
-        const comOpenModal = () => {
-          SetCommentDetailMoreModal(true);
-        };
-        // const commentDetailOpen = () => {
+  //     dispatch(
+  //       postActions.setCommentApi(post[0].postId, {
+  //         comments,
+  //         postId: post[0].postId,
+  //       })
+  //     );
+  //     setComment("");
+  //   };
+
+  const addLike = () => {
+    setLike(true);
+    setAddLiked(1);
+    setDelLiked(0);
+    //addLikeDB(postId);
+  };
+
+  const delLike = () => {
+    setLike(false);
+    setAddLiked(0);
+    setDelLiked(-1);
+    //addLikeDB(postId);
+  };
+
+  const deleteComment = (commentId1) => {
+    //dispatch(deleteCommentDB(postId, commentId1));
+  };
+
+  const comOpenModal = () => {
+    SetCommentDetailMoreModal(true);
+  };
+  // const commentDetailOpen = () => {
   //   closeModal(false);
   // };
-  
-  
-  
+
   useEffect(() => {
-    // 클릭한 게시물 ID와 같은 게시물의 인 경우 
-    if(postId == postList.postId){
+    // 클릭한 게시물 ID와 같은 게시물의 인 경우
+    if (postId == postList.postId) {
       dispatch(commentActions.getCommentApi(postId));
     }
     console.log("hi");
-  },[open]);
-  
-
+  }, [open]);
 
   return (
     <>
@@ -120,7 +116,7 @@ const CommentDetailViewModal = (props) => {
       >
         {open ? (
           <>
-            <div > </div>
+            <div> </div>
             <ModalArea>
               <LeftArea
                 style={{
@@ -236,7 +232,7 @@ const CommentDetailViewModal = (props) => {
                                   삭제
                                 </button>
                               ) : null}
-                            </Comments >
+                            </Comments>
                           );
                         })}
                       </div>
