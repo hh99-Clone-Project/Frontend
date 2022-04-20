@@ -100,7 +100,7 @@ export const LikeDB = (postId) => {
   return function (dispatch, getState) {
     axios
       .put(
-        `http://3.35.52.88/api/posts/${postId}`,
+        `http://3.35.52.88/api/favorite/${postId}`,
         {},
         {
           headers: {
