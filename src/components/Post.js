@@ -13,7 +13,7 @@ import CommentDetailViewModal from "./CommentDetailViewModal";
 import { useSelector } from "react-redux";
 
 const Post = (props) => {
-  console.log(props);
+  //console.log("post Props : ", props);
   const userInfo = useSelector((state) => state.user.userInfo);
   /* tspark20220417 - start */
 
@@ -35,7 +35,7 @@ const Post = (props) => {
   const detailOpen = () => {
     setIsOpen(true);
   };
-
+  console.log("props : ",props);
   return (
     <NGrid
       margin={props.margin}

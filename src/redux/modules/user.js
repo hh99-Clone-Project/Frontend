@@ -121,7 +121,7 @@ export default handleActions(
       produce(state, (draft) => {
         // draft.is_login = true;
         // draft.user = action.payload.user;
-        console.log("action : ", action);
+        // console.log("action : ", action);
 
         draft.userInfo = action.payload.userInfo;
       }),

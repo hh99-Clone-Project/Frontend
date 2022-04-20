@@ -46,7 +46,7 @@ export const addPostDB = (data, token) => {
 
 export const getPostDB = (token, page, setIsLoading) => {
   return function (dispatch, getState) {
-    console.log(page);
+    // console.log(page);
     axios
       .get(`http://3.35.52.88/api/posts?page=${page}`, {
         headers: {
@@ -145,7 +145,7 @@ export default handleActions(
       }),
     [GETPOST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.postList);
+        //console.log(action.payload.postList);
         draft.postList.push(...action.payload.postList);
       }),
     [MOREPOST]: (state, action) =>
