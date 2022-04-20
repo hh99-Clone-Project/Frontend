@@ -47,6 +47,10 @@ export const addPostDB = (data, token) => {
 
 export const getPostDB = (token, page) => {
   return function (dispatch, getState) {
+<<<<<<< HEAD
+=======
+    // console.log(page);
+>>>>>>> b5e4fd597758046348d9a79bd3e4b29845a57f6a
     axios
       .get(`http://3.35.52.88/api/posts?page=${page}`, {
         headers: {

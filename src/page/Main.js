@@ -26,8 +26,6 @@ const Main = (props) => {
     }, 100)
   );
 
-  scrollEvent();
-
   useEffect(() => {
     window.addEventListener("scroll", scrollEvent);
 

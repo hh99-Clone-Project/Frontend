@@ -6,7 +6,7 @@ import moment from "moment";
 import axios from "axios";
 
 // actions
-const GET_COMMENT = "getComment";
+const GET_COMMENT = "GET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 
@@ -29,13 +29,19 @@ const initialState = {
 };
 
 // middleWares
-
 const getCommentApi = (postId) => {
   return async function (dispatch, getState) {
+    console.log("CommentApiPostId : ", postId);
     try {
-      //const response = await axios.get(`/api/comment/${postId}/${page}`);
-      const response = RESP.COMMENTPOSTIDGET;
-      console.log(response);
+     
+      const response = await axios.get(`http://3.35.52.88/api/comments/${postId}/1`,
+      {
+        headers: {
+          Authorization: `BEARER ${localStorage.getItem("token")}`,
+        },
+      });
+      //addLikeDBconst response = RESP.COMMENTPOSTIDGET;
+      // console.log("response : ",response);
       dispatch(getComment(response.data));
     } catch (err) {
       console.log(err);
@@ -95,6 +101,7 @@ export default handleActions(
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.comment_list;
+        //console.log("comment_list :  ", action)
       }),
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -115,6 +122,7 @@ export default handleActions(
 
 // action creator export
 const actionCreators = {
+  getComment,
   getCommentApi,
   addCommentApi,
   deleteCommentApi,

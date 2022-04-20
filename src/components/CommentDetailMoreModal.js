@@ -1,3 +1,4 @@
+import React from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 
@@ -32,16 +33,22 @@ const styles = {
 };
 
 const CommentDetaillMoreModal = (props) => {
-  const { CommentDetailMoreModal } = props;
+  //const { open } = props;
 
   const commentDetailOpen = () => {
     //setCommentDetailView(true);  // 댓글조회 modal 관리 
     //setCommentDetailMoreModal(false);   // 댓글조회에서 더보기 버튼 modal 관리
   };
+
+  // React.useEffect(() => {
+  //   console.log("commentDetailMoreModal : " , open);
+
+  // },[open]) 
+
   return (
     <>
-      <div className={CommentDetailMoreModal ? "openModal modal" : "modal"}>
-        {CommentDetailMoreModal ? (
+      <div className="openModal modal">
+        
           <>
             <OptionBox>
               <p
@@ -84,7 +91,7 @@ const CommentDetaillMoreModal = (props) => {
               취소
             </ModalWrap>
           </>
-        ) : null}
+       
 
         {/* <Modal
         commentDetailView={CommentDetailMoreModal}
