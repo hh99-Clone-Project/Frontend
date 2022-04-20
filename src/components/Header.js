@@ -6,9 +6,12 @@ import ProfileModal from "./ProfileModal";
 import AddPostModal from "./AddPostModal";
 import DMmodal from "../components/DMmodal";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.user?.userInfo);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [addPost, setAddPost] = useState(false);
@@ -50,7 +53,7 @@ const Header = () => {
             type={"circle"}
             width={"24px"}
             height={"24px"}
-            src={require("../static/IU.jpg")}
+            src={userInfo?.profileImg}
             onClick={modalOpen}
             setIsOpen={setIsOpen}
           />

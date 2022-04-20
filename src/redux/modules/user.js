@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 //액션 타입
 const SIGNUP = "SIGNUP";
@@ -30,6 +31,10 @@ export const signUpDB = (userInfo) => {
       .post("http://3.35.52.88/user/signup", frm)
       .then((res) => {
         console.log(res);
+        if (res.data === "Signup Success!") {
+          alert("환영합니다!");
+          useNavigate("/", { replace: true });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -40,7 +45,7 @@ export const signUpDB = (userInfo) => {
 const loginApi = (username, pwd, navigate) => {
   console.log("username : ", username);
   console.log("pwd : ", pwd);
-  
+
   // http://3.35.52.88/user/login
 
   return async function (dispatch, getState) {
@@ -116,7 +121,7 @@ export default handleActions(
       produce(state, (draft) => {
         // draft.is_login = true;
         // draft.user = action.payload.user;
-        console.log("action : ",action);
+        console.log("action : ", action);
 
         draft.userInfo = action.payload.userInfo;
       }),
