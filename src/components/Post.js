@@ -126,7 +126,7 @@ const Post = (props) => {
         </NGrid>
 
         <p style={{ color: "#8E8EAB", cursor: "pointer" }} onClick={openModal}>
-          댓글{props.commentCnt}개 모두 보기
+          {props.commentCnt ? `댓글${props.commentCnt}개 모두 보기` : null}
         </p>
       </NGrid>
       <NGrid height="33px" line_height="33px">
