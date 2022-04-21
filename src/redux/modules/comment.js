@@ -17,8 +17,7 @@ const getComment = createAction(GET_COMMENT, (comment_list) => ({
 const addComment = createAction(ADD_COMMENT, (commentInfo) => ({
   commentInfo,
 }));
-const deleteComment = createAction(DELETE_COMMENT, (post_id, commentId) => ({
-  post_id,
+const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
   commentId,
 }));
 
@@ -72,21 +71,36 @@ const addCommentApi = (postId, commentInfo) => {
   };
 };
 
-const deleteCommentApi = (post_id, commentId) => {
+const deleteCommentApi = (commentId) => {
+  console.log("commentId : ",commentId)
   return async function (dispatch, getState) {
     try {
-      await axios.delete(`http://54.180.96.119/api/comments/${commentId}`, {
+      await axios.delete(`http://3.35.52.88/api/comments/${commentId}`, {
         headers: {
           Authorization: `BEARER ${localStorage.getItem("token")}`,
         },
       });
-      dispatch(deleteComment(post_id, commentId));
+      alert("댓글이 삭제되었습니다");
+      dispatch(deleteComment(commentId));
     } catch (err) {
       console.log(err);
       alert("댓글 삭제에 실패하였습니다.");
     }
   };
 };
+
+// const deleteCommentDB = (commentId, postId) => {
+//   return async function (dispatch, getState, { history }) {
+//     const response = await axiosInstance.delete(`/api/comment/${commentId}`);
+//     // const response = RESP.COMMENTCOMMENTIDDELETE;
+//     if ((response.status = 200)) {
+//       window.alert("댓글이 삭제되었습니다.");
+//       dispatch(getCommentDB(postId));
+//     }
+//   };
+// };
+
+
 
 // reducer
 export default handleActions(
@@ -103,7 +117,8 @@ export default handleActions(
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.list[0].comments = draft.list[0].comments.filter(
+        console.log("action : ",action);
+        draft.list.comments = draft.list.comments.filter(
           (v) => v.commentId !== action.payload.commentId
         );
       }),
