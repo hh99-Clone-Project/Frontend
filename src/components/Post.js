@@ -6,6 +6,7 @@ import PostBtn from "../elements/PostBtn";
 import PostModal from "./PostModal";
 import UpdateModal from "./UpdateModal";
 import { LikeDB } from "../redux/modules/post";
+import { actionCreators } from "../redux/modules/comment";
 
 // test modal 추가 - tspark20220417
 import Grid from "../elements/Grid";
@@ -14,6 +15,7 @@ import CommentDetailViewModal from "./CommentDetailViewModal";
 import { useSelector, useDispatch } from "react-redux";
 
 const Post = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
   /* tspark20220417 - start */
@@ -31,10 +33,19 @@ const Post = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [detail, setDetail] = useState(false);
+  const [comment, setComment] = useState();
 
   // Post
   const detailOpen = () => {
     setIsOpen(true);
+  };
+
+  const addComment = () => {
+    dispatch(actionCreators.addCommentApi(props.postId, comment));
+  };
+
+  const _comment = (e) => {
+    setComment(e.target.value);
   };
 
   const Like = () => {
@@ -148,12 +159,14 @@ const Post = (props) => {
         <hr style={{ border: "0.5px solid #EFEFEF" }} />
         <NGrid height="53px" is_flex>
           <Input
+            onChange={_comment}
             margin={"0 0 0 40px"}
             border={"none"}
             placehorder={"댓글 달기..."}
             shape={"textarea"}
           ></Input>
           <p
+            onClick={addComment}
             style={{
               width: "30px",
               fontSize: "13px",
@@ -161,7 +174,7 @@ const Post = (props) => {
               margin: "0 20px 0 0",
             }}
           >
-            게시
+            {comment ? "게시" : null}
           </p>
         </NGrid>
 
