@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineClose } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { IoMdPaperPlane } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
@@ -26,6 +26,12 @@ const CommentDetailViewModal = (props) => {
   /* CommentDetailMoreModal Modal */
   const [commentDetailMoreModal, SetCommentDetailMoreModal] = useState(false);
   const [hasComment, setHasComment] = useState("");
+
+
+  /* Comment Delete */
+  const commentDeleteClick = (commentId) => {
+    dispatch(commentActions.deleteCommentApi(commentId));
+  };
 
   /* like */
   const [like, setLike] = useState(props.like);
@@ -78,12 +84,23 @@ const CommentDetailViewModal = (props) => {
     console.log("postId : ", postId);
   }, [open]);
 
+  
+
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <>
-            <div></div>
+            <Header>
+            <AiOutlineClose 
+            style={{ 
+              color: "rgb(255, 255, 255)",
+              fill: "rgb(255, 255, 255)",
+              height: "18px",
+              width: "18px",
+              }} onClick={close}>
+            </AiOutlineClose>
+            </Header>
             <ModalArea>
               <LeftArea
                 style={{
@@ -118,7 +135,7 @@ const CommentDetailViewModal = (props) => {
                         <BsThreeDots
                           size="20"
                           style={{ width: "30px", cursor: "pointer" }}
-                          onClick={comOpenModal}
+                          //onClick={comOpenModal}
                         />
                       </>
 
@@ -163,10 +180,7 @@ const CommentDetailViewModal = (props) => {
                             left: "-10px",
                           }}
                         >
-                          <PostTitleImg
-                            src={imageSrc}
-                            alt="이미지"
-                          />
+                          <PostTitleImg src={imageSrc} alt="이미지" />
                         </PostTitleImgArea>
                       </div>
                       {commentsList?.map((c) => {
@@ -181,16 +195,6 @@ const CommentDetailViewModal = (props) => {
                                 })}
                             </Commentna>
 
-                            {c.nickname === loginUser.nickname ? (
-                              <button
-                                onClick={() => {
-                                  //commentDeleteClick(commentId);
-                                }}
-                              >
-                                삭제
-                              </button>
-                            ) : null}
-
                             <CommentFooter>
                               <Link
                                 to="/"
@@ -203,6 +207,16 @@ const CommentDetailViewModal = (props) => {
                               <Like>좋아요 0개</Like>
                               <ReComment>답글 달기</ReComment>
                             </CommentFooter>
+                            {c.nickname === loginUser.nickname ? (
+                              <button
+                                onClick={() => {
+                                  commentDeleteClick(commentId);
+                                }}
+                              >
+                                삭제
+                              </button>
+                            ) : null}
+
                             <PostTitleImgArea
                               style={{
                                 position: "absolute",
@@ -223,9 +237,7 @@ const CommentDetailViewModal = (props) => {
                               )}
                             </PostTitleImgArea>
                             <ThreeDotsArea id="dots">
-                              <BsThreeDots
-                                onClick={comOpenModal}
-                              />
+                              <BsThreeDots onClick={comOpenModal} />
                             </ThreeDotsArea>
                             <AiOutlineHeart
                               size="13"
@@ -342,6 +354,7 @@ const ModalArea = styled.div`
   /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
   overflow: hidden;
+  z-index: 1000;
 `;
 
 const LeftArea = styled.div`
@@ -527,6 +540,16 @@ const ModalWrap = styled.div`
   align-items: center;
   cursor: pointer;
   font-size: 14px;
+`;
+
+const Header = styled.div`
+  position: fixed; 
+  left: 85%;
+  right: 0; 
+  top: 0; 
+  height: 4rem; 
+  line-height: 4rem; 
+  text-align: center;
 `;
 
 export default CommentDetailViewModal;

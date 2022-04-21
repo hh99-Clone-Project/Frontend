@@ -19,7 +19,7 @@ const Main = (props) => {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
-      console.log(scrollHeight, scrollTop, clientHeight);
+      //console.log(scrollHeight, scrollTop, clientHeight);
       if (scrollHeight - scrollTop - clientHeight < 100) {
         setPageNum((prev) => prev + 1);
       }
