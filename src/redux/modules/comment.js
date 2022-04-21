@@ -14,9 +14,8 @@ const DELETE_COMMENT = "DELETE_COMMENT";
 const getComment = createAction(GET_COMMENT, (comment_list) => ({
   comment_list,
 }));
-const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({
-  post_id,
-  comment,
+const addComment = createAction(ADD_COMMENT, (commentInfo) => ({
+  commentInfo,
 }));
 const deleteComment = createAction(DELETE_COMMENT, (post_id, commentId) => ({
   post_id,
@@ -31,17 +30,18 @@ const initialState = {
 // middleWares
 const getCommentApi = (postId) => {
   return async function (dispatch, getState) {
-    console.log("CommentApiPostId : ", postId);
+    //console.log("CommentApiPostId : ", postId);
     try {
-     
-      const response = await axios.get(`http://3.35.52.88/api/comments/${postId}/1`,
-      {
-        headers: {
-          Authorization: `BEARER ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(
+        `http://3.35.52.88/api/comments/${postId}/1`,
+        {
+          headers: {
+            Authorization: `BEARER ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       //addLikeDBconst response = RESP.COMMENTPOSTIDGET;
-      // console.log("response : ",response);
+      //console.log("response : ",response);
       dispatch(getComment(response.data));
     } catch (err) {
       console.log(err);
@@ -64,14 +64,7 @@ const addCommentApi = (postId, commentInfo) => {
           },
         }
       );
-      //  const comment = RESP.POSTSPOST;
-      console.log(comment);
-      // const doc = {
-      //   ...commentInfo,
-      //   postId: comment.data.postId,
-      //   content: comment.data.content,
-      // };
-      // dispatch(addComment(postId, doc));
+      dispatch(addComment(comment.data));
     } catch (err) {
       console.log(err);
       alert("댓글 작성에 실패하였습니다.");
@@ -101,14 +94,12 @@ export default handleActions(
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.comment_list;
-        //console.log("comment_list :  ", action)
+        console.log("comment_list :  ", action);
       }),
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        const idx = draft.list.findIndex(
-          (v) => v.postId === action.payload.post_id
-        );
-        draft.list[idx].comments.unshift(action.payload.comment);
+        console.log(action.payload);
+        draft.list.comments.push(action.payload.commentInfo);
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
