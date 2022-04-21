@@ -42,6 +42,7 @@ const Post = (props) => {
 
   const addComment = () => {
     dispatch(actionCreators.addCommentApi(props.postId, comment));
+    window.location.reload();
   };
 
   const _comment = (e) => {
@@ -56,7 +57,7 @@ const Post = (props) => {
       margin={props.margin}
       border="1px solid #DBDBDB"
       width="615px"
-      height="900px"
+      height="920px"
       bg="#ffffff"
     >
       <NGrid height={"72px"} is_flex>
@@ -108,7 +109,16 @@ const Post = (props) => {
           <PostBtn type={"BookMark"} />
         </NGrid>
       </NGrid>
-
+      <p
+        style={{
+          width: "300px",
+          margin: "0 0 0 10px",
+          color: "black",
+          fontWeight: "600",
+        }}
+      >
+        좋아요 {props.favoriteCnt}개
+      </p>
       <NGrid height="72px" padding="10px">
         <NGrid width="200px" margin="0" is_flex>
           <p

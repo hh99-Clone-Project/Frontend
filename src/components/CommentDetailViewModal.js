@@ -27,7 +27,6 @@ const CommentDetailViewModal = (props) => {
   const [commentDetailMoreModal, SetCommentDetailMoreModal] = useState(false);
   const [hasComment, setHasComment] = useState("");
 
-
   /* Comment Delete */
   const commentDeleteClick = (commentId) => {
     dispatch(commentActions.deleteCommentApi(commentId));
@@ -41,7 +40,6 @@ const CommentDetailViewModal = (props) => {
 
   // Props에서 data받아오기
   const postId = props.data.postId;
-
 
   const imageFile = props.data.imageFile;
   const postNickname = props.data.nickname;
@@ -84,22 +82,21 @@ const CommentDetailViewModal = (props) => {
     console.log("postId : ", postId);
   }, [open]);
 
-  
-
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <>
             <Header>
-            <AiOutlineClose 
-            style={{ 
-              color: "rgb(255, 255, 255)",
-              fill: "rgb(255, 255, 255)",
-              height: "18px",
-              width: "18px",
-              }} onClick={close}>
-            </AiOutlineClose>
+              <AiOutlineClose
+                style={{
+                  color: "rgb(255, 255, 255)",
+                  fill: "rgb(255, 255, 255)",
+                  height: "18px",
+                  width: "18px",
+                }}
+                onClick={close}
+              ></AiOutlineClose>
             </Header>
             <ModalArea>
               <LeftArea
@@ -302,9 +299,15 @@ const CommentDetailViewModal = (props) => {
                         }}
                       />
                     </Link>
-
-                    {/* {liked && <Liked>좋아요 {likeValue + delLiked}개</Liked>}
-                    {liked || <Liked>좋아요 {likeValue + addLiked}개</Liked>} */}
+                    <p
+                      style={{
+                        width: "155px",
+                        margin: "0 0 10px 10px",
+                        color: "black",
+                      }}
+                    >
+                      좋아요 {props.data.favoriteCnt}개
+                    </p>
 
                     <WriteComment>
                       <CgSmile
@@ -543,12 +546,12 @@ const ModalWrap = styled.div`
 `;
 
 const Header = styled.div`
-  position: fixed; 
+  position: fixed;
   left: 85%;
-  right: 0; 
-  top: 0; 
-  height: 4rem; 
-  line-height: 4rem; 
+  right: 0;
+  top: 0;
+  height: 4rem;
+  line-height: 4rem;
   text-align: center;
 `;
 
