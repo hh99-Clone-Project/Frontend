@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import NGrid from "../elements/NGrid";
 import Image from "../elements/NImage";
 import Input from "../elements/NInput";
@@ -7,6 +7,7 @@ import PostModal from "./PostModal";
 import UpdateModal from "./UpdateModal";
 import { LikeDB } from "../redux/modules/post";
 import { actionCreators } from "../redux/modules/comment";
+import _ from "lodash";
 
 // test modal 추가 - tspark20220417
 import Grid from "../elements/Grid";
@@ -34,6 +35,8 @@ const Post = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [detail, setDetail] = useState(false);
   const [comment, setComment] = useState();
+  const [like, setLike] = useState(props.favoriteCnt);
+  const [dislike, setDisLike] = useState(props.favoriteStatus);
 
   // Post
   const detailOpen = () => {
@@ -51,7 +54,16 @@ const Post = (props) => {
 
   const Like = () => {
     dispatch(LikeDB(props.postId));
+    if (dislike === false) {
+      setLike((prev) => prev + 1);
+      setDisLike(true);
+    }
+    if (dislike === true) {
+      setLike((prev) => prev - 1);
+      setDisLike(false);
+    }
   };
+
   return (
     <NGrid
       margin={props.margin}
@@ -117,7 +129,7 @@ const Post = (props) => {
           fontWeight: "600",
         }}
       >
-        좋아요 {props.favoriteCnt}개
+        좋아요 {like}개
       </p>
       <NGrid height="72px" padding="10px">
         <NGrid width="200px" margin="0" is_flex>

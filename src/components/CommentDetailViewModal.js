@@ -210,7 +210,7 @@ const CommentDetailViewModal = (props) => {
                                   commentDeleteClick(commentId);
                                 }}
                               >
-                                삭제
+                                삭제{console.log(c)}
                               </button>
                             ) : null}
 
