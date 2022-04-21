@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../shared/App.css";
-
+import Modal from "react-modal";
 // import { getCommentApi, setCommentApi, deleteCommentApi } from "../../redux/modules/comment";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import post, { actionCreators as postActions } from "../redux/modules/post";
@@ -22,16 +22,19 @@ const CommentDetailViewModal = (props) => {
   const dispatch = useDispatch();
   const { open, close, data } = props;
 
+  // const commentsList = useSelector((state) => {
+  //   console.log("state : ", state.comment.list.comments);
+  // });
   const commentsList = useSelector((state) => state.comment.list.comments);
-
-  //console.log("comments : ",commentsList);
 
   const loginUser = useSelector((state) => state.user?.userInfo);
   const postList = useSelector((state) => state.post.postList);
 
-  // CommentDetailMoreModal Modal
+  /* CommentDetailMoreModal Modal */
   const [commentDetailMoreModal, SetCommentDetailMoreModal] = useState(false);
   const [hasComment, setHasComment] = useState("");
+
+  /* like */
   const [like, setLike] = useState(props.like);
   const liked = props.like;
   const [delLiked, setDelLiked] = useState(0);
@@ -55,19 +58,20 @@ const CommentDetailViewModal = (props) => {
 
   const addComment = (postId) => {
     dispatch(commentActions.addCommentApi(postId, hasComment));
+    setHasComment("");
     // console.log(hasComment);
   };
 
   //댓글 작성
-  //   const [comment, setComment] = useState("");
-  //   const writeComment = (e) => {
-  //     setComment(e.target.value);
-  //   };
+  // const [comment, setComment] = useState("");
+  // const writeComment = (e) => {
+  //   setComment(e.target.value);
+  // };
 
   //  const clickBtn = () => {
   //     dispatch(
-  //       postActions.setCommentApi(post[0].postId, {
-  //         comments,
+  //       commentActions.addCommentApi(postId, {
+  //         comments : comments,
   //         postId: post[0].postId,
   //       })
   //     );
@@ -95,28 +99,23 @@ const CommentDetailViewModal = (props) => {
   const comOpenModal = () => {
     SetCommentDetailMoreModal(true);
   };
-  // const commentDetailOpen = () => {
-  //   closeModal(false);
-  // };
 
   useEffect(() => {
     // 클릭한 게시물 ID와 같은 게시물의 인 경우
-    if (postId == postList.postId) {
-      dispatch(commentActions.getCommentApi(postId));
-    }
-    console.log("hi");
+    dispatch(commentActions.getCommentApi(postId));
+    console.log("postId : ", postId);
+    // if(postId == postList.postId){
+    //   dispatch(commentActions.getCommentApi(postId));
+    //   console.log("postId : " );
+    // }
   }, [open]);
 
   return (
     <>
-      <div
-        className={open ? "openModal modal" : "modal"}
-        //ref={wrapperRef} value={open}
-        //onClick={close}
-      >
+      <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <>
-            <div> </div>
+            <div></div>
             <ModalArea>
               <LeftArea
                 style={{
@@ -156,7 +155,9 @@ const CommentDetailViewModal = (props) => {
                       </>
 
                       {commentDetailMoreModal ? (
-                        <CommentDetailMoreModal></CommentDetailMoreModal>
+                        <CommentDetailMoreModal
+                          data={props}
+                        ></CommentDetailMoreModal>
                       ) : null}
 
                       {/* <CommentDetailMoreModal
@@ -214,28 +215,79 @@ const CommentDetailViewModal = (props) => {
                             alt="이미지"
                           />
                         </PostTitleImgArea>
-                        {commentsList?.map((c) => {
-                          const commentId = c.commentId;
-                          return (
-                            <Comments key={c.commentId}>
-                              <div>
-                                <img src={c.imageSrc}></img>
-                                <span>{c.nickname}</span>
-                                <p>{c.comment}</p>
-                              </div>
-                              {c.nickname === loginUser.nickname ? (
-                                <button
-                                  onClick={() => {
-                                    //commentDeleteClick(commentId);
-                                  }}
-                                >
-                                  삭제
-                                </button>
-                              ) : null}
-                            </Comments>
-                          );
-                        })}
                       </div>
+                      {commentsList?.map((c) => {
+                        const commentId = c.commentId;
+                        return (
+                          <Comments key={c.commentId}>
+                            <PostTitle>{c.nickname}</PostTitle>
+                            <Commentna>
+                              {c.contents &&
+                                c.contents.split("\n").map((c, idx) => {
+                                  return <div key={idx}>{c}</div>;
+                                })}
+                            </Commentna>
+
+                            {c.nickname === loginUser.nickname ? (
+                              <button
+                                onClick={() => {
+                                  //commentDeleteClick(commentId);
+                                }}
+                              >
+                                삭제
+                              </button>
+                            ) : null}
+
+                            <CommentFooter>
+                              <Link
+                                to="/"
+                                style={{
+                                  textDecoration: "none",
+                                }}
+                              >
+                                <ModifiedAt>방금전</ModifiedAt>
+                              </Link>
+                              <Like>좋아요 0개</Like>
+                              <ReComment>답글 달기</ReComment>
+                            </CommentFooter>
+                            <PostTitleImgArea
+                              style={{
+                                position: "absolute",
+                                top: "-20px",
+                                left: "-10px",
+                              }}
+                            >
+                              {(imageSrc && (
+                                <PostTitleImg
+                                  src={imageSrc}
+                                  alt="프로필 사진"
+                                />
+                              )) || (
+                                <PostTitleImg
+                                  src="https://image.similarpng.com/very-thumbnail/2020/06/Instagram-logo-transparent-PNG.png"
+                                  alt="프로필사진X"
+                                />
+                              )}
+                            </PostTitleImgArea>
+                            <ThreeDotsArea id="dots">
+                              <BsThreeDots
+                                // onClick={() => {
+                                //   setCommentInfoModal(true);
+                                // }}
+                                onClick={comOpenModal}
+                              />
+                            </ThreeDotsArea>
+                            <AiOutlineHeart
+                              size="13"
+                              style={{
+                                position: "absolute",
+                                top: "0",
+                                right: "10px",
+                              }}
+                            />
+                          </Comments>
+                        );
+                      })}
                     </Contents>
                   </Scroll>
                 </ContentArea>
@@ -290,7 +342,7 @@ const CommentDetailViewModal = (props) => {
                     </Link>
 
                     {/* {liked && <Liked>좋아요 {likeValue + delLiked}개</Liked>}
-                {liked || <Liked>좋아요 {likeValue + addLiked}개</Liked>} */}
+                    {liked || <Liked>좋아요 {likeValue + addLiked}개</Liked>} */}
 
                     <WriteComment>
                       <CgSmile
@@ -317,20 +369,6 @@ const CommentDetailViewModal = (props) => {
                 </RightFooter>
               </RightArea>
             </ModalArea>
-
-            {/* <section>
-              <header>
-                {header}
-                <button className="close" onClick={close}></button>
-              </header>
-
-              <main>{props.children}</main>
-              <footer>
-                <button className="close" onClick={close}>
-                  close
-                </button>
-              </footer>
-            </section> */}
           </>
         ) : null}
       </div>
@@ -470,7 +508,7 @@ const Commentna = styled.div`
 `;
 
 const CommentFooter = styled.div`
-  display: flex;
+  display: inline-flex;
 `;
 
 const Like = styled.div`
