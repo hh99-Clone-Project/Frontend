@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../shared/App.css";
-import Modal from "react-modal";
-// import { getCommentApi, setCommentApi, deleteCommentApi } from "../../redux/modules/comment";
 import { actionCreators as commentActions } from "../redux/modules/comment";
-import post, { actionCreators as postActions } from "../redux/modules/post";
 
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -16,15 +13,11 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiBookmarkLine } from "react-icons/ri";
 import { CgSmile } from "react-icons/cg";
 import CommentDetailMoreModal from "./CommentDetailMoreModal";
-import { countBy } from "lodash";
 
 const CommentDetailViewModal = (props) => {
   const dispatch = useDispatch();
   const { open, close, data } = props;
 
-  // const commentsList = useSelector((state) => {
-  //   console.log("state : ", state.comment.list.comments);
-  // });
   const commentsList = useSelector((state) => state.comment.list.comments);
 
   const loginUser = useSelector((state) => state.user?.userInfo);
@@ -42,54 +35,33 @@ const CommentDetailViewModal = (props) => {
 
   // Props에서 data받아오기
   const postId = props.data.postId;
-  // console.log("postId : ",postId)
+
 
   const imageFile = props.data.imageFile;
   const postNickname = props.data.nickname;
   const imageSrc = props.data.imageSrc;
-  //const comment = props.data.contents;
 
   // input에 넣은 text 값 가져오기
 
   const changeComment = (e) => {
     setHasComment(e.target.value);
-    // console.log(e.target.value);
   };
 
   const addComment = (postId) => {
     dispatch(commentActions.addCommentApi(postId, hasComment));
     setHasComment("");
-    // console.log(hasComment);
   };
-
-  //댓글 작성
-  // const [comment, setComment] = useState("");
-  // const writeComment = (e) => {
-  //   setComment(e.target.value);
-  // };
-
-  //  const clickBtn = () => {
-  //     dispatch(
-  //       commentActions.addCommentApi(postId, {
-  //         comments : comments,
-  //         postId: post[0].postId,
-  //       })
-  //     );
-  //     setComment("");
-  //   };
 
   const addLike = () => {
     setLike(true);
     setAddLiked(1);
     setDelLiked(0);
-    //addLikeDB(postId);
   };
 
   const delLike = () => {
     setLike(false);
     setAddLiked(0);
     setDelLiked(-1);
-    //addLikeDB(postId);
   };
 
   const deleteComment = (commentId1) => {
@@ -104,10 +76,6 @@ const CommentDetailViewModal = (props) => {
     // 클릭한 게시물 ID와 같은 게시물의 인 경우
     dispatch(commentActions.getCommentApi(postId));
     console.log("postId : ", postId);
-    // if(postId == postList.postId){
-    //   dispatch(commentActions.getCommentApi(postId));
-    //   console.log("postId : " );
-    // }
   }, [open]);
 
   return (
@@ -159,16 +127,6 @@ const CommentDetailViewModal = (props) => {
                           data={props}
                         ></CommentDetailMoreModal>
                       ) : null}
-
-                      {/* <CommentDetailMoreModal
-                        open={commentDetailMoreModal}
-                      ></CommentDetailMoreModal> */}
-
-                      {/* {commentDetailMoreModal ? (
-                        <CommentDetailMoreModal
-                          open={CommentDetailMoreModal}
-                        ></CommentDetailMoreModal>
-                      ) : null} */}
                     </MenuArea>
                   </div>
                 </WriterInfo>
@@ -197,10 +155,6 @@ const CommentDetailViewModal = (props) => {
                             {postNickname}
                           </PostTitle>
                         </Link>
-                        {/* {postContent &&
-                      postContent.split("\n").map((content, index) => {
-                        return <div key={index}>{content}</div>;
-                      })} */}
                         <ModifiedAt>방금전</ModifiedAt>
                         <PostTitleImgArea
                           style={{
@@ -211,7 +165,6 @@ const CommentDetailViewModal = (props) => {
                         >
                           <PostTitleImg
                             src={imageSrc}
-                            // src="https://bbs.bepick.in/bbs/2021/07/bcfac7b78517615749d3aa820f92c1b8_1315146742.jpg"
                             alt="이미지"
                           />
                         </PostTitleImgArea>
@@ -271,9 +224,6 @@ const CommentDetailViewModal = (props) => {
                             </PostTitleImgArea>
                             <ThreeDotsArea id="dots">
                               <BsThreeDots
-                                // onClick={() => {
-                                //   setCommentInfoModal(true);
-                                // }}
                                 onClick={comOpenModal}
                               />
                             </ThreeDotsArea>
@@ -393,16 +343,6 @@ const ModalArea = styled.div`
   animation: modal-show 0.3s;
   overflow: hidden;
 `;
-// const ModalArea = styled.div`
-//   background-color: #fafafa;
-//   @media (min-width: 600px) {
-//     display: flex;
-//     box-sizing: border-box;
-//   }
-//   /* @media (width < 600) {
-//       display: block;
-//     } */
-// `;
 
 const LeftArea = styled.div`
   width: 70%;
